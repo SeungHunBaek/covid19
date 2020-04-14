@@ -7,7 +7,10 @@ class Title extends Component {
         console.log('Title Start');
         return (
             <div>
-              Title start
+                <p>
+                    Title start
+                </p>
+                <input></input>
             </div>  
         );
     }

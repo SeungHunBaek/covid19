@@ -11,11 +11,14 @@ class App extends Component {
     
     constructor(props) {
       super(props);
-      this.storeInfo = React.createRef();
+      this.myRef  = React.createRef();
     }
     state = {
       storeInfo :[],
-      isLoading : true
+      isLoading : true,
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {}
     }
 
     getApiData = async () => {
@@ -32,6 +35,18 @@ class App extends Component {
       this.getApiData();
     }
 
+    // onMouseoverMarker (props, marker, event) {
+    //   console.log(props, marker, event);
+    //   if (this.state.data.showingInfoWindow) {
+    //       this.setState({
+    //         showingInfoWindow: false,
+    //         activeMarker: null
+    //       })
+    //   }
+    // }
+
+
+
     render() {
         return (
           <div>
@@ -46,7 +61,11 @@ class App extends Component {
               )
               :
               (
-               <MapView storeInfo = {this.state.storeInfo}/>
+               <MapView 
+                data = { this.state }
+                storeInfo = {this.state.storeInfo}
+                
+                />
               )
           }
           </div>

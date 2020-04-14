@@ -1,12 +1,52 @@
 
 import React, { Component } from 'react';
 import './MapView.css';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import store from '../../store';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
 class MapView extends Component {
+    
+    state = {
+        showingInfoWindow: store.getState().showingInfoWindow,
+        activeMarker: store.getState().activeMarker,
+        selectedPlace: store.getState().selectedPlace
+    }
+
+    onClickMap = (props) =>{
+        console.log("onClickMap");
+        if (this.state.showingInfoWindow) {
+            store.dispatch({
+                showingInfoWindow: false,
+                activeMarker: null
+            })
+        }
+    }
+
+    onClickMarker = (props, marker, event) => {
+        console.log("onClickMarker: " + this.props.data);
+        store.dispatch({
+            type: 'markerClick',
+            selectedPlace: props,
+            activeMarker: marker,
+            showingInfoWindow: true
+        });
+        // this.setState({
+        //     selectedPlace: props,
+        //     activeMarker: marker,
+        //     showingInfoWindow: true
+        // });
+    }
+    onMouseoverMarker = (props, marker, event) => {
+        console.log(this.props.data);
+        if (this.props.data.showingInfoWindow) {
+          this.setState({
+            showingInfoWindow: false,
+            activeMarker: null
+          })
+        }
+    }
 
     render() {
-
         const mapStyle = {
             width: '100%',
             height: '65%'
@@ -19,6 +59,7 @@ class MapView extends Component {
                 google={this.props.google} 
                 zoom={ 11 }
                 style={ mapStyle }
+                onClick = { this.onClickMap }
                 initialCenter={{ 
                     lat: 37.5855683, 
                     lng: 127.0006014
@@ -26,75 +67,30 @@ class MapView extends Component {
               >
                 {storeInfo.map(info => (
                     <Marker
-                        key = {info.code}
+                        key = { info.code }
                         title = { info.name }
+                        onClick = { this.onClickMarker }
                         position = {{ 
                             lat: info.lat, 
                             lng: info.lng 
                         }}
                     />
+  
                 ))}
-              </Map>
-
+                <InfoWindow 
+                    marker = { this.props.data.activeMarker }
+                    visible = {true}
+                >
+                    <div>
+                        <h1>test</h1>
+                    </div>
+                </InfoWindow>
+                </Map>
             </div>  
         );
-
-       
-        // return (
-        //     <div>
-        //       <Map
-        //         google={this.props.google} 
-        //         zoom={ defaultZoom }
-        //         style={ mapStyle }
-        //         initialCenter={{ 
-        //             lat: center.lat, 
-        //             lng: center.lng
-        //         }}
-        //       />
-        //     </div>  
-        // );
     }
 }
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyDMzkOPyQ1RPR-lqB1JHwiIIzxT7E0f0Lg'
   })(MapView);
-
-
-
-
-// import React, { Component } from 'react';
-// import GoogleMapReact from 'google-map-react';
- 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
- 
-// class MapView extends Component {
-//   static defaultProps = {
-//     center: {
-//       lat: 59.95,
-//       lng: 30.33
-//     },
-//     zoom: 11
-//   };
- 
-//   render() {
-//     return (
-//       // Important! Always set the container height explicitly
-//       <div style={{ height: '100vh', width: '100%' }}>
-//         <GoogleMapReact
-//           bootstrapURLKeys={{ key: 'AIzaSyDMzkOPyQ1RPR-lqB1JHwiIIzxT7E0f0Lg' }}
-//           defaultCenter={this.props.center}
-//           defaultZoom={this.props.zoom}
-//         >
-//           <AnyReactComponent
-//             lat={59.955413}
-//             lng={30.337844}
-//             text="My Marker"
-//           />
-//         </GoogleMapReact>
-//       </div>
-//     );
-//   }
-// }
- 
-// export default MapView;
