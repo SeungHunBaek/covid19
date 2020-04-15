@@ -3,8 +3,22 @@ import React, { Component } from 'react';
 import './MapView.css';
 import store from '../../store';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+//import { Map, GoogleApiWrapper, Marker, InfoWindow } from "react-google-maps";
 
 class MapView extends Component {
+
+    constructor(props) {
+        super(props);
+
+        store.subscribe(()=>{
+            const _store = store;
+            this.setState({
+                showingInfoWindow: _store.getState().showingInfoWindow,
+                activeMarker: _store.getState().activeMarker,
+                selectedPlace: _store.getState().selectedPlace
+            });
+        })
+    }
     
     state = {
         showingInfoWindow: store.getState().showingInfoWindow,
@@ -14,7 +28,8 @@ class MapView extends Component {
 
     onClickMap = (props) =>{
         console.log("onClickMap");
-        if (this.state.showingInfoWindow) {
+        
+        if (store.getState().showingInfoWindow) {
             store.dispatch({
                 showingInfoWindow: false,
                 activeMarker: null
@@ -51,12 +66,13 @@ class MapView extends Component {
             width: '100%',
             height: '65%'
         }
+
         const { storeInfo } = this.props;
 
         return (
             <div>
               <Map
-                google={this.props.google} 
+                google={ this.props.google }  
                 zoom={ 11 }
                 style={ mapStyle }
                 onClick = { this.onClickMap }
@@ -65,26 +81,36 @@ class MapView extends Component {
                     lng: 127.0006014
                 }}
               >
-                {storeInfo.map(info => (
+                {storeInfo.map((info, index) => (
                     <Marker
                         key = { info.code }
                         title = { info.name }
                         onClick = { this.onClickMarker }
+                        label = { index.toString() }
                         position = {{ 
                             lat: info.lat, 
                             lng: info.lng 
                         }}
-                    />
-  
+                    >
+                        <InfoWindow 
+                            key = { info.code }
+                            marker = { this.state.activeMarker }
+                            visible = { true }
+                        >
+                                <div>
+                                <h1>test</h1>
+                            </div>
+                        </InfoWindow>
+                    </Marker>
                 ))}
-                <InfoWindow 
-                    marker = { this.props.data.activeMarker }
-                    visible = {true}
+                {/* <InfoWindow 
+                    marker = { store.getState().activeMarker }
+                    visible = { store.getState().showingInfoWindow }
                 >
                     <div>
                         <h1>test</h1>
                     </div>
-                </InfoWindow>
+                </InfoWindow> */}
                 </Map>
             </div>  
         );

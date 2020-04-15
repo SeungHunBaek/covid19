@@ -9,7 +9,9 @@ export default createStore ((state, action) => {
         }
     }
     if (action.type === 'markerClick'){
-        return {...state}
+        console.log('markerClick() action : '+ action.type +", state: "+ action.activeMarker);
+        console.dir("action: "+ action.activeMarker);
+        return {...action, showingInfoWindow: false, activeMarker: action.activeMarker, selectedPlace: action.selectedPlace}
     }
     return state;
 });
