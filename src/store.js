@@ -1,17 +1,52 @@
+import { MARKER_CLICK, GET_API_DATA } from './action/actionIndex';
 import { createStore } from 'redux';
-export default createStore ((state, action) => {
-    if( state === undefined ){
-        console.log('createStore() start');
-        return {
-            showingInfoWindow: false,
-            activeMarker: {},
-            selectedPlace: {}
-        }
+import { combineReducers } from 'redux';
+
+
+/*
+ * Reducer
+ */
+const initMarkerInfo = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {}
+}
+
+const initApiData = {
+    storeInfo :[],
+}
+
+// const markerInfo = (state = initMarkerInfo, action) => {
+
+//     switch(action.type) {
+//         case MARKER_CLICK: 
+//             return {...action, 
+//                 showingInfoWindow: false, 
+//                 activeMarker: action.activeMarker, 
+//                 selectedPlace: action.selectedPlace
+//             }
+        
+//         default :
+//             return state;
+//     }
+// }
+
+// const apiData = (state, action) => {
+
+// }
+
+
+export default createStore ((state = initMarkerInfo, action) => {
+    
+    switch(action.type) {
+        case MARKER_CLICK: 
+            return {...action, 
+                showingInfoWindow: false, 
+                activeMarker: action.activeMarker, 
+                selectedPlace: action.selectedPlace
+            }
+        
+        default :
+            return state;
     }
-    if (action.type === 'markerClick'){
-        console.log('markerClick() action : '+ action.type +", state: "+ action.activeMarker);
-        console.dir("action: "+ action.activeMarker);
-        return {...action, showingInfoWindow: false, activeMarker: action.activeMarker, selectedPlace: action.selectedPlace}
-    }
-    return state;
 });

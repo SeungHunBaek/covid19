@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import axios from 'axios';
 import './App.css';
-
 import MapView from './components/MapView/MapView.js';
-
 
 class App extends Component {
     
@@ -16,9 +14,6 @@ class App extends Component {
     state = {
       storeInfo :[],
       isLoading : true,
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {}
     }
 
     getApiData = async () => {
@@ -34,18 +29,6 @@ class App extends Component {
     componentDidMount() {
       this.getApiData();
     }
-
-    // onMouseoverMarker (props, marker, event) {
-    //   console.log(props, marker, event);
-    //   if (this.state.data.showingInfoWindow) {
-    //       this.setState({
-    //         showingInfoWindow: false,
-    //         activeMarker: null
-    //       })
-    //   }
-    // }
-
-
 
     render() {
         return (
@@ -63,7 +46,7 @@ class App extends Component {
               (
                <MapView 
                 data = { this.state }
-                storeInfo = {this.state.storeInfo}
+                storeInfo = { this.state.storeInfo }
                 
                 />
               )

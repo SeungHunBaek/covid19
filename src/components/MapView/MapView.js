@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './MapView.css';
 import store from '../../store';
+import { SEARCH_ADD } from '../../api/api';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 //import { Map, GoogleApiWrapper, Marker, InfoWindow } from "react-google-maps";
 
@@ -8,17 +10,36 @@ class MapView extends Component {
     state = {
         activeMarker: {},
         selectedPlace: {},
+        selectedStoreInfo: {},
         showingInfoWindow: false
     };
+    
+    getStoreInfo = async () => {
+        let selectedCode = this.state.selectedPlace.codeInfo;
+        let addr = this.state.selectedPlace.addr;
+        let splitStr = addr.split(" ");
+        //console.log(SEARCH_ADD +splitStr[0]+" "+ splitStr[1]);
+        const { data } = await axios.get(SEARCH_ADD +splitStr[0]+" "+ splitStr[1]);    
+        for (let i = 0; i < data.count; i++) {
+            console.log(data.stores[i].code);
+            if(data.stores[i].code === selectedCode) {
+                this.setState({
+                    selectedStoreInfo: data.stores[i],
+                    showingInfoWindow: true
+                })
+                break;
+            }
+        }
+    }
 
     onMarkerClick = (props, marker) => {
         this.setState({
             activeMarker: marker,
-            selectedPlace: props,
-            showingInfoWindow: true
+            selectedPlace: props
         });
+        this.getStoreInfo();
     }
-        
+    
     onInfoWindowClose = () => {
         this.setState({
             activeMarker: null,
@@ -33,7 +54,7 @@ class MapView extends Component {
         });
     };
     
-      render() {
+    render() {
         const mapStyle = {
             width: '100%',
             height: '65%'
@@ -54,6 +75,8 @@ class MapView extends Component {
                 <Marker
                     key = { info.code }
                     title = { info.name }
+                    addr = { info.addr }
+                    codeInfo = { info.code }
                     onClick = { this.onMarkerClick }
                     position = {{ 
                         lat: info.lat, 
@@ -68,11 +91,12 @@ class MapView extends Component {
             >
               <div>
                 <h4>{this.state.selectedPlace.title}</h4>
+                <h4>{this.state.selectedPlace.addr}</h4>
               </div>
             </InfoWindow>
           </Map>
         );
-      }
+    }
 }
 
 // class MapView extends Component {
