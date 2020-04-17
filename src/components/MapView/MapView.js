@@ -78,7 +78,7 @@ class MapView extends Component {
     render() {
         const mapStyle = {
             width: '100%',
-            height: '65%'
+            height: '100%'
         }
         let { storeInfo } = this.props;
         return (

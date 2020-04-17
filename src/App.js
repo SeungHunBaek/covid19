@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import MapView from './components/MapView/MapView.js';
+import BarChart from './components/chart/BarChart';
+import { MASK, COVID_STATUS_KOREA } from './api/api';
 
 class App extends Component {
     
@@ -14,28 +16,25 @@ class App extends Component {
     state = {
       storeInfo :[],
       isLoading : true,
+      storcovidInfoOfKoreaeInfo :[]
     }
 
     getApiData = async () => {
-      const { data : { storeInfos } } 
-       =  await axios.get(
-        'https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json?page=1'
-      );
+      const {data:{response:{body:{items:{ item }}}}} = await axios.get(COVID_STATUS_KOREA);
+      const {data:{ storeInfos }} =  await axios.get(MASK);
 
-      this.setState({ storeInfo : storeInfos, isLoading : false });
-
+      this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
+      console.log("App.js : "+this.state);
+      console.log(this.state);
     }
     
-    componentDidMount() {
+    componentWillMount() {
       this.getApiData();
     }
 
     render() {
         return (
           <div>
-            <div className="App-header">
-              Covid-19 Map
-            </div>
             {
               this.state.isLoading ? (
               <div>
@@ -44,13 +43,24 @@ class App extends Component {
               )
               :
               (
+              <div>
+               <div className="App-header">
+                Covid-19 Cart
+               </div>
+               <BarChart 
+                data = { this.state.storcovidInfoOfKoreaeInfo }
+                />
+               <div className="App-header">
+                Covid-19 Map
+               </div>
                <MapView 
                 data = { this.state }
                 storeInfo = { this.state.storeInfo }
                 
                 />
+              </div>
               )
-          }
+           }
           </div>
         );
     }

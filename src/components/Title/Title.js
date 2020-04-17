@@ -4,13 +4,11 @@ import './Title.css';
 class Title extends Component {
 
     render() {
-        console.log('Title Start');
         return (
             <div>
                 <p>
                     Title start
                 </p>
-                <input></input>
             </div>  
         );
     }
