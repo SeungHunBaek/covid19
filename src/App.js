@@ -47,9 +47,11 @@ class App extends Component {
                <div className="App-header">
                 Covid-19 Cart
                </div>
+               <div >
                <BarChart 
                 data = { this.state.storcovidInfoOfKoreaeInfo }
                 />
+               </div>
                <div className="App-header">
                 Covid-19 Map
                </div>

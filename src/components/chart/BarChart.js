@@ -49,9 +49,9 @@ class BarChart extends Component {
 	render() {
 		// const koreaInfo = this.state.covidInfoOfKorea;
 
-		const options = {
+		const bar_options = {
 			animationEnabled: true,
-			backgroundColor: "#cbcdd2",
+			backgroundColor: "#c7ccd8",
 			theme: "light2",
 			title:{
 				text: "국내 코로나 현황 "
@@ -66,6 +66,7 @@ class BarChart extends Component {
 			},
 			data: [{
 				type: "bar",
+				xValueFormatString: "#,###",
 				dataPoints: [
 					{ y: this.props.data.decideCnt, label: "확진자수" },
 					{ y: this.props.data.careCnt, label: "치료중" },
@@ -74,14 +75,49 @@ class BarChart extends Component {
 				]
 			}]
 		}
+		const spline_options = {
+			animationEnabled: true,
+			backgroundColor: "#c7ccd8",
+			title:{
+				text: "검사현황"
+			},
+			axisX: {
+				valueFormatString: "MMM"
+			},
+			axisY: {
+				title: "",
+				suffix: "명(人)",
+				includeZero: true
+			},
+			data: [{
+				yValueFormatString: "$#,###",
+				xValueFormatString: "MMMM",
+				type: "spline",
+				dataPoints: [
+					{ x: new Date(2017, 0), y: 25060 },
+					{ x: new Date(2017, 1), y: 27980 },
+					{ x: new Date(2017, 2), y: 42800 },
+					{ x: new Date(2017, 3), y: 32400 },
+					{ x: new Date(2017, 4), y: 35260 },
+					{ x: new Date(2017, 5), y: 33900 },
+					{ x: new Date(2017, 6), y: 40000 },
+					{ x: new Date(2017, 7), y: 52500 },
+					{ x: new Date(2017, 8), y: 32300 },
+					{ x: new Date(2017, 9), y: 42000 },
+					{ x: new Date(2017, 10), y: 37160 },
+					{ x: new Date(2017, 11), y: 38400 }
+				]
+			}]
+		}
 		return (
-		<div>
-			<CanvasJSChart options = {options}  className ="chartSize"
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-			
-		</div>
+			<div className = "chartPosition">
+				<div style={{height: 25+"em", width: 50+"%"}}>
+					<CanvasJSChart options = {bar_options}/>
+				</div>
+				<div style={{height: 25+"em", width: 50+"%"}}>
+					<CanvasJSChart options = {spline_options}/>
+				</div>
+			</div>
 		);
 	}
 	addSymbols(e){
