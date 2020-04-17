@@ -62,7 +62,8 @@ class BarChart extends Component {
 			},
 			axisY: {
 				title: "",
-				labelFormatter: this.addSymbols
+				suffix: "명(人)"
+				// ,labelFormatter: this.addSymbols
 			},
 			data: [{
 				type: "bar",
@@ -91,7 +92,7 @@ class BarChart extends Component {
 			},
 			data: [{
 				yValueFormatString: "$#,###",
-				xValueFormatString: "MMMM",
+				xValueFormatString: "MMDD",
 				type: "spline",
 				dataPoints: [
 					{ x: new Date(2017, 0), y: 25060 },
@@ -111,10 +112,10 @@ class BarChart extends Component {
 		}
 		return (
 			<div className = "chartPosition">
-				<div style={{height: 25+"em", width: 50+"%"}}>
+				<div style={{height: 25+"em", width: 49.7+"%"}}>
 					<CanvasJSChart options = {bar_options}/>
 				</div>
-				<div style={{height: 25+"em", width: 50+"%"}}>
+				<div style={{height: 25+"em", width: 49.89+"%"}}>
 					<CanvasJSChart options = {spline_options}/>
 				</div>
 			</div>
@@ -122,7 +123,6 @@ class BarChart extends Component {
 	}
 	addSymbols(e){
 		// 단위설정
-
 		return e.value + "명";
 	}
 }

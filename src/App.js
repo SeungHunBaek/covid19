@@ -53,7 +53,7 @@ class App extends Component {
                 />
                </div>
                <div className="App-header">
-                Covid-19 Map
+                Covid-19 Mask Map
                </div>
                <MapView 
                 data = { this.state }
