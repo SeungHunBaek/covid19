@@ -12,14 +12,21 @@ class BarChart extends Component {
 	constructor(props) {
 		super(props);
 	}
+
+
+
 	state = {
+		todaysState:[],
+		checkupInfo:[],
+		storcovidInfoOfKoreaeInfo:[],
+
 		decideCnt: 10635,						// 확진자 수
 		clearCnt: 7829,							// 격리해제 수
-		examCnt: 14186,							// 검사진행 수
+		examCnt: 14186,							// 검사진행 수 1
 		deathCnt: 230,							// 사망자 수
 		careCnt: 2576,							// 치료중 환자 수
-		resutlNegCnt: 521642,					// 결과 음성 수
-		accDefRate: "1.9980198280",				// 누적 확진률
+		resutlNegCnt: 521642,					// 결과 음성 수 1
+		accDefRate: "1.9980198280",				// 누적 확진률 1
 		accExamCnt: 546463,						// 누적 검사 수
 		accExamCompCnt: 532277,					// 누적 검사 완료 수
 		seq: 109,								// 게시글번호(감염현황 고유값)
@@ -28,62 +35,156 @@ class BarChart extends Component {
 		createDt: "2020-04-17 10:32:02.119",	// 등록일시분초 
 		updateDt: "null"						// 수정일시분초
 	}
-	
+	preProccess = () => { 
+
+		const date = new Date();
+		const stateDt = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
+		const propsData = this.props._data.item;
+		
+		for (let i = 0; i < propsData.length; i++) {
+			
+			if(stateDt == propsData[i].stateDt) {
+				this.setState({
+					todaysState: propsData[i]
+				})
+				break;
+			}
+		}
+	}
+	setCheckupInfoData = () => {
+		const propsData = this.props._data.item;
+		const graphData = [];
+		
+		for (let i = 0; i < propsData.length; i=i+10) {
+			const dateStr = propsData[i].stateDt+"";
+			graphData.push({
+				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
+				y: propsData[i].decideCnt,
+				indexLabel: this.numberWithCommas(propsData[i].decideCnt)
+			});
+		}
+		return graphData;
+	}
+	setDeathCntData = () => {
+		const propsData = this.props._data.item;
+		const graphData = [];
+		
+		for (let i = 0; i < propsData.length; i=i+10) {
+			const dateStr = propsData[i].stateDt+"";
+			graphData.push({
+				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
+				y: propsData[i].deathCnt,
+				indexLabel: this.numberWithCommas(propsData[i].deathCnt)
+			});
+		}
+		return graphData;
+	}
+	setCareCntData = () => {
+		const propsData = this.props._data.item;
+		const graphData = [];
+		
+		for (let i = 0; i < propsData.length; i=i+10) {
+			const dateStr = propsData[i].stateDt+"";
+			graphData.push({
+				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
+				y: propsData[i].careCnt,
+				indexLabel: this.numberWithCommas(propsData[i].careCnt)
+				
+			});
+		}
+		return graphData;
+	}
+	numberWithCommas = (x) => {
+		
+		return parseInt(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+		
 	componentWillMount() {
-		// this.getApiData();
-		console.log("componentWillMount()");
+		this.preProccess()
 	}
 	
-
-	getApiData = async () => {
-		const {data:{response:{body:{items:{ item }}}}} 
-			= await axios.get(COVID_STATUS_KOREA);
-
-		this.setState = ({
-			covidInfoOfKorea: item.createDt,
-			abc:1
-		})
-	}
-
 	
 	render() {
 		// const koreaInfo = this.state.covidInfoOfKorea;
+		const todaysState = this.state.todaysState;
 
 		const bar_options = {
-			animationEnabled: true,
+			
+			animationEnabled: true, 
+			
 			backgroundColor: "#c7ccd8",
 			theme: "light2",
 			title:{
-				text: "국내 코로나 현황 "
+				text: "국내 코로나 현황 ",
+				fontFamily: "arial",
+				fontWeight: "normal",
+				fontSize: 30,
 			},
+			subtitles:[
+				{
+					text: "韓国の感染者状況"
+				}
+			],
 			axisX: {
 				title: "",
 				reversed: true,
 			},
 			axisY: {
 				title: "",
+				scaleBreaks: {
+					// autoCalculate: true,
+					// collapsibleThreshold : "10 %" ,
+					customBreaks: [{
+						startValue: 15000,
+						endValue: 500000
+					}],
+					type: "wavy",
+					lineColor: "#c7ccd8"
+				},
 				suffix: "명(人)"
 				// ,labelFormatter: this.addSymbols
 			},
+
 			data: [{
 				type: "bar",
 				xValueFormatString: "#,###",
 				dataPoints: [
-					{ y: this.props.data.decideCnt, label: "확진자수" },
-					{ y: this.props.data.careCnt, label: "치료중" },
-					{ y: this.props.data.clearCnt, label: "격리해제" },
-					{ y: this.props.data.deathCnt, label: "사망자" }
+					{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: this.numberWithCommas(todaysState.accExamCnt)},
+					{ y: todaysState.resutlNegCnt, label: "누적음성수", indexLabel: this.numberWithCommas(todaysState.resutlNegCnt) },
+					{ y: todaysState.decideCnt, label: "확진자수", indexLabel: this.numberWithCommas(todaysState.decideCnt)},
+					{ y: todaysState.clearCnt, label: "격리해제", indexLabel: this.numberWithCommas(todaysState.clearCnt)},
+					{ y: todaysState.careCnt, label: "치료중", indexLabel: this.numberWithCommas(todaysState.careCnt)}
 				]
+				// dataPoints: [
+				// 	{ y: this.state.todaysState.decideCnt, label: "확진자수" },
+				// 	{ y: this.state.todaysState.clearCnt, label: "격리해제" },
+				// 	{ y: this.state.todaysState.careCnt, label: "치료중" },
+				// 	{ y: this.state.todaysState.deathCnt, label: "사망자" }
+				// ]
 			}]
 		}
 		const spline_options = {
 			animationEnabled: true,
 			backgroundColor: "#c7ccd8",
 			title:{
-				text: "검사현황"
+				text: "검사현황",
+				fontFamily: "arial",
+				fontWeight: "normal",
+				fontSize: 30
+			},
+			subtitles:[
+				{
+					text: "検査状況"
+				}
+			],
+			toolTip:{   
+				content: "확진자 수(感染者) <br/> {x}: {y}"      
 			},
 			axisX: {
-				valueFormatString: "MMM"
+				//valueFormatString: "MMM"
+				//interval: 3,
+				intervalType: "day",
+				valueFormatString: "MM-DD",
 			},
 			axisY: {
 				title: "",
@@ -91,24 +192,27 @@ class BarChart extends Component {
 				includeZero: true
 			},
 			data: [{
-				yValueFormatString: "$#,###",
-				xValueFormatString: "MMDD",
 				type: "spline",
-				dataPoints: [
-					{ x: new Date(2017, 0), y: 25060 },
-					{ x: new Date(2017, 1), y: 27980 },
-					{ x: new Date(2017, 2), y: 42800 },
-					{ x: new Date(2017, 3), y: 32400 },
-					{ x: new Date(2017, 4), y: 35260 },
-					{ x: new Date(2017, 5), y: 33900 },
-					{ x: new Date(2017, 6), y: 40000 },
-					{ x: new Date(2017, 7), y: 52500 },
-					{ x: new Date(2017, 8), y: 32300 },
-					{ x: new Date(2017, 9), y: 42000 },
-					{ x: new Date(2017, 10), y: 37160 },
-					{ x: new Date(2017, 11), y: 38400 }
-				]
-			}]
+				yValueFormatString: "#,###명(人)",
+				showInLegend: true,
+				name: "확진자 수(感染者)",
+				dataPoints: this.setCheckupInfoData()
+			},
+			{
+				type: "spline",
+				yValueFormatString: "#,###명(人)",
+				showInLegend: true,
+				name: "사망자 수(死亡者)",
+				dataPoints: this.setDeathCntData()
+			},
+			{
+				type: "spline",
+				yValueFormatString: "#,###명(人)",
+				showInLegend: true,
+				name: "치료중 환자 수(治療中の患者数)",
+				dataPoints: this.setCareCntData()
+			}
+		]
 		}
 		return (
 			<div className = "chartPosition">

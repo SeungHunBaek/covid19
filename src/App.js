@@ -17,24 +17,30 @@ class App extends Component {
       storeInfo :[],
       isLoading : true,
       storcovidInfoOfKoreaeInfo :[]
+      ,_storcovidInfoOfKoreaeInfo :[]
     }
 
     getApiData = async () => {
-      let date = new Date();
+      const date = new Date();
       const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
       const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
       const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
-      
       const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
-      const {data:{ storeInfos }} =  await axios.get(MASK);
+      
+      const _yesterday = date.getFullYear() +"0"+ (date.getMonth()-2) +""+ (date.getDate()-1);
+      const _today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
+      const _url = COVID_STATUS_KOREA + "&startCreateDt="+_yesterday +"&endCreateDt="+_today;
+      const {data:{response:{body:{items}}}} = await axios.get(_url);
 
+      const {data:{ storeInfos }} =  await axios.get(MASK);
+      
+      this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, _storcovidInfoOfKoreaeInfo:items, isLoading : false });
       this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
-      console.log("App.js : "+this.state);
-      console.log(this.state);
     }
     
     componentWillMount() {
       this.getApiData();
+      console.log(this.state);
     }
 
     render() {
@@ -55,6 +61,7 @@ class App extends Component {
                <div >
                <BarChart 
                 data = { this.state.storcovidInfoOfKoreaeInfo }
+                _data = { this.state._storcovidInfoOfKoreaeInfo }
                 />
                </div>
                <div className="App-header">
