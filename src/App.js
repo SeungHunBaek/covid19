@@ -20,7 +20,12 @@ class App extends Component {
     }
 
     getApiData = async () => {
-      const {data:{response:{body:{items:{ item }}}}} = await axios.get(COVID_STATUS_KOREA);
+      let date = new Date();
+      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
+      const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
+      const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
+      
+      const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
       const {data:{ storeInfos }} =  await axios.get(MASK);
 
       this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
