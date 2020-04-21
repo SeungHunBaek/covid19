@@ -3,7 +3,8 @@ import CanvasJSReact  from '../../lib/canvasjs.react';
 // import XMLParser from 'react-xml-parser';
 import axios from 'axios';
 import './Barchart.css';
-import { COVID_STATUS_KOREA } from '../../api/api';
+import * as NactionCode from '../../api/constans';
+
 
 let CanvasJS = CanvasJSReact.CanvasJS;
 let CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -16,7 +17,6 @@ class BarChart extends Component {
 	state = {
 		todaysState:[],
 		checkupInfo:[],
-		storcovidInfoOfKoreaeInfo:[],
 
 		decideCnt: 10635,						// 확진자 수
 		clearCnt: 7829,							// 격리해제 수
@@ -102,7 +102,62 @@ class BarChart extends Component {
 			{ y: todaysState.careCnt, label: "치료중", indexLabel: "治療中:　"+this.numberWithCommas(todaysState.careCnt)}
 		];
 
-		console.log("setBarchartData:" + graphData);
+		return graphData;
+	}
+	setStackedBarchartData = (type) => {
+		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
+		const graphData = [];
+		
+		for (let i = 0; i < worldInfos.length; i++) {
+			const nation_seq = worldInfos[i].seq;
+			switch(nation_seq) {
+				case NactionCode.AMERICA_SEQ :
+					if(type === "infectedPerson") {
+						graphData.push({
+							label: "America",
+							y: worldInfos[i].natDefCnt,
+						});
+					} else if(type === "deadPerson") {
+						graphData.push({
+							label: "America",
+							y: worldInfos[i].natDeathCnt,
+						});
+					}
+
+					break;
+				case NactionCode.CANADA_SEQ :
+				case NactionCode.BRAZIL_SEQ :
+				case NactionCode.KOREA_SEQ :
+				case NactionCode.CHINA_SEQ :
+				// case NactionCode.HONKONG_SEQ :
+				// case NactionCode.TAIWAN_SEQ :
+				case NactionCode.JAPAN_SEQ :
+				// case NactionCode.SINGAPORE_SEQ :
+				// case NactionCode.INDIA_SEQ :
+				// case NactionCode.RUSSIA_SEQ :
+				case NactionCode.ITALY_SEQ :
+				// case NactionCode.GERMANY_SEQ :
+				case NactionCode.FRANCE_SEQ :
+				case NactionCode.UK_SEQ :
+				// case NactionCode.SPAIN_SEQ :
+				// case NactionCode.AUSTRALIA_SEQ :
+				// case NactionCode.NEWZEALAND_SEQ :
+					if(type === "infectedPerson") {
+						graphData.push({
+							label: worldInfos[i].nationNmEn,
+							y: worldInfos[i].natDefCnt,
+						});
+					} else if(type === "deadPerson") {
+						graphData.push({
+							label: worldInfos[i].nationNmEn,
+							y: worldInfos[i].natDeathCnt,
+						});
+					}
+				break;
+			}
+		}
+		console.log(graphData);
+		graphData.sort(this.compareCnt);
 		return graphData;
 	}
 
@@ -115,10 +170,12 @@ class BarChart extends Component {
 	componentWillMount() {
 		this.preProccess()
 	}
+	compareCnt(compare1, compare2) {
+		return compare1.y - compare2.y;
+	}
 	
 	
 	render() {
-		const todaysState = this.state.todaysState;
 		const bar_options = {
 			
 			animationEnabled: true, 
@@ -183,6 +240,7 @@ class BarChart extends Component {
 			axisX: {
 				intervalType: "day",
 				valueFormatString: "MM-DD",
+				interval: 5
 			},
 			axisY: {
 				title: "",
@@ -215,6 +273,81 @@ class BarChart extends Component {
 			}
 		]
 		}
+		const stackedBar_options = {
+			animationEnabled: true,
+			theme: "light2",
+			title:{
+				text: "해외 코로나 누적현황 ",
+				fontFamily: "arial",
+				fontWeight: "normal",
+				fontSize: 30,
+			},
+			subtitles:[
+				{
+					text: "海外のコロナ累積状況"
+				}
+			],
+
+			axisX: {
+				// reversed: true,
+			},
+			axisY: {
+				
+			},
+			toolTip: {
+				shared: true
+			},
+			legend:{
+				cursor: "pointer",
+				itemclick: this.toggleDataSeries
+			},
+			  data: [
+			  {
+				type: "stackedBar",
+				legendText: "확진자",
+				showInLegend: "true",
+				// xValueFormatString: "#,###",
+				color: "rgba(63,81,181,.9)",
+				dataPoints: this.setStackedBarchartData("infectedPerson")
+			  },
+				{
+				type: "stackedBar",
+				legendText: "사망자",
+				showInLegend: "true",
+				dataPoints: this.setStackedBarchartData("deadPerson")
+			  },
+			 
+		
+
+
+			// data: [{
+			// 	type: "stackedBar",
+			// 	legendText: "확진자",
+			// 	showInLegend: "true",
+
+			// 	dataPoints: [
+			// 		{ x: "United States of America", y: 86 },
+	
+			// 	]
+			// 	// dataPoints: this.setStackedBarchartData()
+			// },
+			// {
+			// 	type: "stackedBar",
+			// 	name: "사망자",
+			// 	showInLegend: "true",
+			// 	color: "rgba(250,57,57,.9)",
+			// 	dataPoints: [
+			// 		{ x: "United States of America", y: 86 },
+			// 		// { x: new Date(2018, 5, 26), y: 95 },
+			// 		// { x: new Date(2018, 5, 27), y: 71 },
+			// 		// { x: new Date(2018, 5, 28), y: 58 },
+			// 		// { x: new Date(2018, 5, 29), y: 60 },
+			// 		// { x: new Date(2018, 5, 30), y: 65 },
+			// 		// { x: new Date(2018, 6, 1), y: 89 }
+			// 	]
+			// }
+		]
+		}
 		return (
 			<div>
 				<div className = "chartPosition">
@@ -224,6 +357,9 @@ class BarChart extends Component {
 					<div style={{height: 25+"em", width: 49.89+"%"}}>
 						<CanvasJSChart options = {spline_options}/>
 					</div>
+				</div>
+				<div style={{height: 25+"em", width: 99.5+"%"}}>
+						<CanvasJSChart options = {stackedBar_options}/>
 				</div>
 			</div>
 		);

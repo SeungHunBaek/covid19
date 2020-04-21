@@ -5,7 +5,7 @@ import axios from 'axios';
 import './App.css';
 import MapView from './components/MapView/MapView.js';
 import BarChart from './components/chart/BarChart';
-import { MASK, COVID_STATUS_KOREA } from './api/api';
+import { MASK, COVID_STATUS_KOREA, COVID_STATUS_WORLD } from './api/api';
 
 class App extends Component {
     
@@ -16,25 +16,29 @@ class App extends Component {
     state = {
       storeInfo :[],
       isLoading : true,
-      // storcovidInfoOfKoreaeInfo :[],
-      _storcovidInfoOfKoreaeInfo :[]
+      covidInfoOfWorldInfo :[],
+      covidInfoOfKoreaInfo :[]
+
     }
 
     getApiData = async () => {
       const date = new Date();
-      // const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
       // const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
       // const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
       // const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
       
-      const _yesterday = date.getFullYear() +"0"+ (date.getMonth()-2) +""+ (date.getDate()-1);
+      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
+      const twoMonthsAgo = date.getFullYear() +"0"+ (date.getMonth()-1) +""+ (date.getDate()-1);
       const _today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
-      const _url = COVID_STATUS_KOREA + "&startCreateDt="+_yesterday +"&endCreateDt="+_today;
-      const {data:{response:{body:{items}}}} = await axios.get(_url);
+      const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
+      const queryStr_yesterday = "&startCreateDt="+yesterday +"&endCreateDt="+_today;
+      const {data:{response:{body:{items}}}} = await axios.get(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
+      const {data:{response:{body:{items:_items}}}} = await axios.get(COVID_STATUS_WORLD + queryStr_yesterday);
+
 
       const {data:{ storeInfos }} =  await axios.get(MASK);
       
-      this.setState({ storeInfo : storeInfos, _storcovidInfoOfKoreaeInfo:items, isLoading : false });
+      this.setState({ storeInfo : storeInfos, covidInfoOfWorldInfo:_items, covidInfoOfKoreaInfo:items, isLoading : false });
       //this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
     }
     
@@ -61,7 +65,8 @@ class App extends Component {
                <div >
                <BarChart 
                 // data = { this.state.storcovidInfoOfKoreaeInfo }
-                _data = { this.state._storcovidInfoOfKoreaeInfo }
+                _data = { this.state.covidInfoOfKoreaInfo }
+                  data = { this.state }
                 />
                </div>
                <div className="App-header">
