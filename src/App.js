@@ -16,16 +16,16 @@ class App extends Component {
     state = {
       storeInfo :[],
       isLoading : true,
-      storcovidInfoOfKoreaeInfo :[]
-      ,_storcovidInfoOfKoreaeInfo :[]
+      // storcovidInfoOfKoreaeInfo :[],
+      _storcovidInfoOfKoreaeInfo :[]
     }
 
     getApiData = async () => {
       const date = new Date();
-      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
-      const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
-      const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
-      const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
+      // const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
+      // const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
+      // const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
+      // const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
       
       const _yesterday = date.getFullYear() +"0"+ (date.getMonth()-2) +""+ (date.getDate()-1);
       const _today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
@@ -34,8 +34,8 @@ class App extends Component {
 
       const {data:{ storeInfos }} =  await axios.get(MASK);
       
-      this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, _storcovidInfoOfKoreaeInfo:items, isLoading : false });
-      this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
+      this.setState({ storeInfo : storeInfos, _storcovidInfoOfKoreaeInfo:items, isLoading : false });
+      //this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
     }
     
     componentWillMount() {
@@ -60,7 +60,7 @@ class App extends Component {
                </div>
                <div >
                <BarChart 
-                data = { this.state.storcovidInfoOfKoreaeInfo }
+                // data = { this.state.storcovidInfoOfKoreaeInfo }
                 _data = { this.state._storcovidInfoOfKoreaeInfo }
                 />
                </div>

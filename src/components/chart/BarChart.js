@@ -13,8 +13,6 @@ class BarChart extends Component {
 		super(props);
 	}
 
-
-
 	state = {
 		todaysState:[],
 		checkupInfo:[],
@@ -94,6 +92,21 @@ class BarChart extends Component {
 		}
 		return graphData;
 	}
+	setBarchartData = () => {
+		const todaysState = this.state.todaysState;
+		const graphData = [
+			{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: "累積検査数:　"+this.numberWithCommas(todaysState.accExamCnt)},
+			{ y: todaysState.resutlNegCnt, label: "누적음성수", indexLabel: "累積陰性数:　"+this.numberWithCommas(todaysState.resutlNegCnt) },
+			{ y: todaysState.decideCnt, label: "확진자수", indexLabel: "感染者数:　"+this.numberWithCommas(todaysState.decideCnt)},
+			{ y: todaysState.clearCnt, label: "격리해제", indexLabel: "隔離解除数:　"+this.numberWithCommas(todaysState.clearCnt)},
+			{ y: todaysState.careCnt, label: "치료중", indexLabel: "治療中:　"+this.numberWithCommas(todaysState.careCnt)}
+		];
+
+		console.log("setBarchartData:" + graphData);
+		return graphData;
+	}
+
+
 	numberWithCommas = (x) => {
 		
 		return parseInt(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -105,24 +118,22 @@ class BarChart extends Component {
 	
 	
 	render() {
-		// const koreaInfo = this.state.covidInfoOfKorea;
 		const todaysState = this.state.todaysState;
-
 		const bar_options = {
 			
 			animationEnabled: true, 
 			
-			backgroundColor: "#c7ccd8",
+			// backgroundColor: "#c7ccd8",
 			theme: "light2",
 			title:{
-				text: "국내 코로나 현황 ",
+				text: "국내 코로나 누적현황 ",
 				fontFamily: "arial",
 				fontWeight: "normal",
 				fontSize: 30,
 			},
 			subtitles:[
 				{
-					text: "韓国の感染者状況"
+					text: "韓国のコロナ累積状況"
 				}
 			],
 			axisX: {
@@ -141,6 +152,7 @@ class BarChart extends Component {
 					type: "wavy",
 					lineColor: "#c7ccd8"
 				},
+				
 				suffix: "명(人)"
 				// ,labelFormatter: this.addSymbols
 			},
@@ -148,46 +160,35 @@ class BarChart extends Component {
 			data: [{
 				type: "bar",
 				xValueFormatString: "#,###",
-				dataPoints: [
-					{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: this.numberWithCommas(todaysState.accExamCnt)},
-					{ y: todaysState.resutlNegCnt, label: "누적음성수", indexLabel: this.numberWithCommas(todaysState.resutlNegCnt) },
-					{ y: todaysState.decideCnt, label: "확진자수", indexLabel: this.numberWithCommas(todaysState.decideCnt)},
-					{ y: todaysState.clearCnt, label: "격리해제", indexLabel: this.numberWithCommas(todaysState.clearCnt)},
-					{ y: todaysState.careCnt, label: "치료중", indexLabel: this.numberWithCommas(todaysState.careCnt)}
-				]
-				// dataPoints: [
-				// 	{ y: this.state.todaysState.decideCnt, label: "확진자수" },
-				// 	{ y: this.state.todaysState.clearCnt, label: "격리해제" },
-				// 	{ y: this.state.todaysState.careCnt, label: "치료중" },
-				// 	{ y: this.state.todaysState.deathCnt, label: "사망자" }
-				// ]
+				dataPoints: this.setBarchartData()
 			}]
 		}
 		const spline_options = {
 			animationEnabled: true,
-			backgroundColor: "#c7ccd8",
+			// backgroundColor: "#c7ccd8",
 			title:{
-				text: "검사현황",
+				text: "날짜별 현황",
 				fontFamily: "arial",
 				fontWeight: "normal",
 				fontSize: 30
 			},
 			subtitles:[
 				{
-					text: "検査状況"
+					text: "日付別の状況"
 				}
 			],
 			toolTip:{   
 				content: "확진자 수(感染者) <br/> {x}: {y}"      
 			},
 			axisX: {
-				//valueFormatString: "MMM"
-				//interval: 3,
 				intervalType: "day",
 				valueFormatString: "MM-DD",
 			},
 			axisY: {
 				title: "",
+				crosshair: {
+					enabled: true
+				},
 				suffix: "명(人)",
 				includeZero: true
 			},
@@ -215,12 +216,14 @@ class BarChart extends Component {
 		]
 		}
 		return (
-			<div className = "chartPosition">
-				<div style={{height: 25+"em", width: 49.7+"%"}}>
-					<CanvasJSChart options = {bar_options}/>
-				</div>
-				<div style={{height: 25+"em", width: 49.89+"%"}}>
-					<CanvasJSChart options = {spline_options}/>
+			<div>
+				<div className = "chartPosition">
+					<div style={{height: 25+"em", width: 49.7+"%"}}>
+						<CanvasJSChart options = {bar_options}/>
+					</div>
+					<div style={{height: 25+"em", width: 49.89+"%"}}>
+						<CanvasJSChart options = {spline_options}/>
+					</div>
 				</div>
 			</div>
 		);
