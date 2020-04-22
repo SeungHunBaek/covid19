@@ -23,5 +23,24 @@ export const SPAIN_SEQ          = 10905;
 export const AUSTRALIA_SEQ      = 10949;
 export const NEWZEALAND_SEQ     = 10950;
 
+//아메리카
+export const AMERICA_NAME        = "United States of America";
+export const CANADA_NAME         = "Canada";
+export const BRAZIL_NAME         = "Brazil";
+export const MAXICO_NAME         = "Mexico";
+// 아시아
+export const KOREA_NAME          = "South Korea";
+export const CHINA_NAME          = "China";
+export const HONKONG_NAME        = "Hong Kong";
+export const JAPAN_NAME          = "Japan";
+export const RUSSIA_NAME         = "Russia";
+//유럽
+export const ITALY_NAME          = "Italy";
+export const GERMANY_NAME        = "Germany";
+export const FRANCE_NAME         = "France";
+export const UK_NAME             = "英国";
+export const SPAIN_NAME          = "Spain";
 
-// export const _SEQ = ;
+//오세아니아
+export const AUSTRALIA_NAME      = "Australia";
+export const NEWZEALAND_NAME     = "New Zealand";

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './MapView.css';
-import store from '../../store';
 import { SEARCH_ADD } from '../../api/api';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
@@ -17,7 +16,6 @@ class MapView extends Component {
         let selectedCode = this.state.selectedPlace.codeInfo;
         let addr = this.state.selectedPlace.addr;
         let splitStr = addr.split(" ");
-        //console.log(SEARCH_ADD +splitStr[0]+" "+ splitStr[1]);
         const { data } = await axios.get(SEARCH_ADD +splitStr[0]+" "+ splitStr[1]);    
         for (let i = 0; i < data.count; i++) {
             if(data.stores[i].code === selectedCode) {
@@ -70,6 +68,8 @@ class MapView extends Component {
                 break;
             case 'break'  :
                 resultStr = "판매중지(販売中止)";
+                break;
+            default:
                 break;
         }
         return resultStr;

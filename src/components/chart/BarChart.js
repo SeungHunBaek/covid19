@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import CanvasJSReact  from '../../lib/canvasjs.react';
-// import XMLParser from 'react-xml-parser';
-import axios from 'axios';
 import './Barchart.css';
 import * as NactionCode from '../../api/constans';
 
-
-let CanvasJS = CanvasJSReact.CanvasJS;
 let CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 class BarChart extends Component {
-	constructor(props) {
-		super(props);
-	}
 
 	state = {
 		todaysState:[],
@@ -41,7 +33,7 @@ class BarChart extends Component {
 		
 		for (let i = 0; i < propsData.length; i++) {
 			
-			if(stateDt == propsData[i].stateDt) {
+			if(stateDt === String(propsData[i].stateDt)) {
 				this.setState({
 					todaysState: propsData[i]
 				})
@@ -95,7 +87,7 @@ class BarChart extends Component {
 	setBarchartData = () => {
 		const todaysState = this.state.todaysState;
 		const graphData = [
-			{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: "累積検査数:　"+this.numberWithCommas(todaysState.accExamCnt)},
+			{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: "累積検査数:　"+this.numberWithCommas(todaysState.accExamCnt),indexLabelFontColor: "black"},
 			{ y: todaysState.resutlNegCnt, label: "누적음성수", indexLabel: "累積陰性数:　"+this.numberWithCommas(todaysState.resutlNegCnt) },
 			{ y: todaysState.decideCnt, label: "확진자수", indexLabel: "感染者数:　"+this.numberWithCommas(todaysState.decideCnt)},
 			{ y: todaysState.clearCnt, label: "격리해제", indexLabel: "隔離解除数:　"+this.numberWithCommas(todaysState.clearCnt)},
@@ -109,55 +101,67 @@ class BarChart extends Component {
 		const graphData = [];
 		
 		for (let i = 0; i < worldInfos.length; i++) {
-			const nation_seq = worldInfos[i].seq;
-			switch(nation_seq) {
-				case NactionCode.AMERICA_SEQ :
+			
+			const nation_name = worldInfos[i].nationNmEn;
+			
+			switch(nation_name) {
+				case NactionCode.AMERICA_NAME :
 					if(type === "infectedPerson") {
 						graphData.push({
 							label: "America",
 							y: worldInfos[i].natDefCnt,
+							name: "확진자(感染者)",
+							indexLabel: this.numberWithCommas(worldInfos[i].natDefCnt),
+							indexLabelPlacement: "inside",
+							indexLabelFontColor: "black"
 						});
 					} else if(type === "deadPerson") {
 						graphData.push({
 							label: "America",
 							y: worldInfos[i].natDeathCnt,
+							name: "사망자(死亡者)",
+							indexLabel: this.numberWithCommas(worldInfos[i].natDeathCnt),
+							indexLabelPlacement: "inside",
+							indexLabelFontColor: "black"
 						});
 					}
-
 					break;
-				case NactionCode.CANADA_SEQ :
-				case NactionCode.BRAZIL_SEQ :
-				case NactionCode.KOREA_SEQ :
-				case NactionCode.CHINA_SEQ :
-				// case NactionCode.HONKONG_SEQ :
-				// case NactionCode.TAIWAN_SEQ :
-				case NactionCode.JAPAN_SEQ :
-				// case NactionCode.SINGAPORE_SEQ :
-				// case NactionCode.INDIA_SEQ :
-				// case NactionCode.RUSSIA_SEQ :
-				case NactionCode.ITALY_SEQ :
-				// case NactionCode.GERMANY_SEQ :
-				case NactionCode.FRANCE_SEQ :
-				case NactionCode.UK_SEQ :
-				// case NactionCode.SPAIN_SEQ :
-				// case NactionCode.AUSTRALIA_SEQ :
-				// case NactionCode.NEWZEALAND_SEQ :
+				case NactionCode.CANADA_NAME :
+				case NactionCode.BRAZIL_NAME :
+				case NactionCode.KOREA_NAME :
+				case NactionCode.CHINA_NAME :
+				case NactionCode.JAPAN_NAME :
+				case NactionCode.RUSSIA_NAME :
+				case NactionCode.ITALY_NAME :
+				case NactionCode.FRANCE_NAME :
+				case NactionCode.UK_NAME :
+				case NactionCode.SPAIN_NAME :
 					if(type === "infectedPerson") {
 						graphData.push({
 							label: worldInfos[i].nationNmEn,
 							y: worldInfos[i].natDefCnt,
+							name: "확진자(感染者)",
+							indexLabel: this.numberWithCommas(worldInfos[i].natDefCnt),
+							indexLabelPlacement: "inside",
+							indexLabelFontColor: "black"
 						});
 					} else if(type === "deadPerson") {
 						graphData.push({
 							label: worldInfos[i].nationNmEn,
 							y: worldInfos[i].natDeathCnt,
+							name: "사망자(死亡者)",
+							indexLabel: this.numberWithCommas(worldInfos[i].natDeathCnt),
+							indexLabelPlacement: "inside",
+							indexLabelFontColor: "black"
 						});
 					}
 				break;
+				default: 
+				break;
 			}
 		}
-		console.log(graphData);
 		graphData.sort(this.compareCnt);
+		
 		return graphData;
 	}
 
@@ -180,7 +184,6 @@ class BarChart extends Component {
 			
 			animationEnabled: true, 
 			
-			// backgroundColor: "#c7ccd8",
 			theme: "light2",
 			title:{
 				text: "국내 코로나 누적현황 ",
@@ -196,12 +199,12 @@ class BarChart extends Component {
 			axisX: {
 				title: "",
 				reversed: true,
+				labelFontColor: "black"
 			},
 			axisY: {
 				title: "",
+				labelFontColor: "black",
 				scaleBreaks: {
-					// autoCalculate: true,
-					// collapsibleThreshold : "10 %" ,
 					customBreaks: [{
 						startValue: 15000,
 						endValue: 500000
@@ -224,19 +227,16 @@ class BarChart extends Component {
 			animationEnabled: true,
 			// backgroundColor: "#c7ccd8",
 			title:{
-				text: "날짜별 현황",
+				text: "국내 날짜별 현황",
 				fontFamily: "arial",
 				fontWeight: "normal",
 				fontSize: 30
 			},
 			subtitles:[
 				{
-					text: "日付別の状況"
+					text: "韓国の日付別状況"
 				}
 			],
-			toolTip:{   
-				content: "확진자 수(感染者) <br/> {x}: {y}"      
-			},
 			axisX: {
 				intervalType: "day",
 				valueFormatString: "MM-DD",
@@ -289,10 +289,17 @@ class BarChart extends Component {
 			],
 
 			axisX: {
-				// reversed: true,
+				labelFontColor: "black"
 			},
 			axisY: {
-				
+				labelFontColor: "black",
+				scaleBreaks: {
+					autoCalculate : true ,
+					collapsibleThreshold : "50 %" ,
+					type: "wavy",
+					lineColor: "#c7ccd8"
+				},
+				suffix: "명(人)"
 			},
 			toolTip: {
 				shared: true
@@ -314,38 +321,10 @@ class BarChart extends Component {
 				type: "stackedBar",
 				legendText: "사망자",
 				showInLegend: "true",
+				color: "rgba(250,81,081,.9)",
 				dataPoints: this.setStackedBarchartData("deadPerson")
 			  },
-			 
-		
-
-
-			// data: [{
-			// 	type: "stackedBar",
-			// 	legendText: "확진자",
-			// 	showInLegend: "true",
-
-			// 	dataPoints: [
-			// 		{ x: "United States of America", y: 86 },
 	
-			// 	]
-			// 	// dataPoints: this.setStackedBarchartData()
-			// },
-			// {
-			// 	type: "stackedBar",
-			// 	name: "사망자",
-			// 	showInLegend: "true",
-			// 	color: "rgba(250,57,57,.9)",
-			// 	dataPoints: [
-			// 		{ x: "United States of America", y: 86 },
-			// 		// { x: new Date(2018, 5, 26), y: 95 },
-			// 		// { x: new Date(2018, 5, 27), y: 71 },
-			// 		// { x: new Date(2018, 5, 28), y: 58 },
-			// 		// { x: new Date(2018, 5, 29), y: 60 },
-			// 		// { x: new Date(2018, 5, 30), y: 65 },
-			// 		// { x: new Date(2018, 6, 1), y: 89 }
-			// 	]
-			// }
 		]
 		}
 		return (

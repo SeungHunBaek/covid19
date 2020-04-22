@@ -1,6 +1,6 @@
-import { MARKER_CLICK, GET_API_DATA } from './action/actionIndex';
+import { MARKER_CLICK } from './action/actionIndex';
 import { createStore } from 'redux';
-import { combineReducers } from 'redux';
+//import { combineReducers } from 'redux';
 
 
 /*
@@ -12,12 +12,9 @@ const initMarkerInfo = {
     selectedPlace: {}
 }
 
-const initApiData = {
-    storeInfo :[],
-}
+
 
 // const markerInfo = (state = initMarkerInfo, action) => {
-
 //     switch(action.type) {
 //         case MARKER_CLICK: 
 //             return {...action, 
@@ -25,14 +22,12 @@ const initApiData = {
 //                 activeMarker: action.activeMarker, 
 //                 selectedPlace: action.selectedPlace
 //             }
-        
+       
 //         default :
 //             return state;
 //     }
 // }
-
 // const apiData = (state, action) => {
-
 // }
 
 

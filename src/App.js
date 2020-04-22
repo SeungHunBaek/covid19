@@ -32,6 +32,9 @@ class App extends Component {
       const _today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
       const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
       const queryStr_yesterday = "&startCreateDt="+yesterday +"&endCreateDt="+_today;
+
+      console.log(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
+      console.log(COVID_STATUS_WORLD + queryStr_yesterday);
       const {data:{response:{body:{items}}}} = await axios.get(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
       const {data:{response:{body:{items:_items}}}} = await axios.get(COVID_STATUS_WORLD + queryStr_yesterday);
 
@@ -44,7 +47,6 @@ class App extends Component {
     
     componentWillMount() {
       this.getApiData();
-      console.log(this.state);
     }
 
     render() {
@@ -59,24 +61,24 @@ class App extends Component {
               :
               (
               <div>
-               <div className="App-header">
-                Covid-19 Cart
-               </div>
-               <div >
-               <BarChart 
-                // data = { this.state.storcovidInfoOfKoreaeInfo }
-                _data = { this.state.covidInfoOfKoreaInfo }
-                  data = { this.state }
-                />
-               </div>
-               <div className="App-header">
-                Covid-19 Mask Map
-               </div>
-               <MapView 
-                data = { this.state }
-                storeInfo = { this.state.storeInfo }
-                
-                />
+                <div className="App-header">
+                  Covid-19 Cart
+                </div>
+                <div >
+                  <BarChart 
+                    _data = { this.state.covidInfoOfKoreaInfo }
+                    data = { this.state }
+                    />
+                </div>
+                <div className="App-header">
+                    Covid-19 Mask Map
+                </div>
+                <div className="MapView">
+                  <MapView 
+                    data = { this.state }
+                    storeInfo = { this.state.storeInfo }
+                    />
+                </div>
               </div>
               )
            }
