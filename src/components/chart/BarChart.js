@@ -311,15 +311,14 @@ class BarChart extends Component {
 			  data: [
 			  {
 				type: "stackedBar",
-				legendText: "확진자",
+				legendText: "확진자(感染者)",
 				showInLegend: "true",
-				// xValueFormatString: "#,###",
 				color: "rgba(63,81,181,.9)",
 				dataPoints: this.setStackedBarchartData("infectedPerson")
 			  },
 				{
 				type: "stackedBar",
-				legendText: "사망자",
+				legendText: "사망자(死亡者)",
 				showInLegend: "true",
 				color: "rgba(250,81,081,.9)",
 				dataPoints: this.setStackedBarchartData("deadPerson")
