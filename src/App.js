@@ -23,26 +23,28 @@ class App extends Component {
 
     getApiData = async () => {
       const date = new Date();
-      // const today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
-      // const url = COVID_STATUS_KOREA + "&startCreateDt="+yesterday +"&endCreateDt="+today;
-      // const {data:{response:{body:{items:{ item }}}}} = await axios.get(url);
       
-      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
-      const twoMonthsAgo = date.getFullYear() +"0"+ (date.getMonth()-1) +""+ (date.getDate()-1);
-      const _today = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate());
+      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) + (this.addZero(date.getDate()-1));
+      const twoMonthsAgo = date.getFullYear() +"0"+ (date.getMonth()-1) + (this.addZero(date.getDate()-1));
+      const _today = date.getFullYear() +"0"+ (date.getMonth()+1) + (this.addZero(date.getDate()));
       const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
       const queryStr_yesterday = "&startCreateDt="+yesterday +"&endCreateDt="+_today;
 
+      console.log("API Data");
       console.log(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
       console.log(COVID_STATUS_WORLD + queryStr_yesterday);
+      console.log("==================================");
+
       const {data:{response:{body:{items}}}} = await axios.get(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
       const {data:{response:{body:{items:_items}}}} = await axios.get(COVID_STATUS_WORLD + queryStr_yesterday);
-
-
       const {data:{ storeInfos }} =  await axios.get(MASK);
       
       this.setState({ storeInfo : storeInfos, covidInfoOfWorldInfo:_items, covidInfoOfKoreaInfo:items, isLoading : false });
-      //this.setState({ storeInfo : storeInfos, storcovidInfoOfKoreaeInfo:item, isLoading : false });
+    }
+
+    addZero(value) {
+      let date = "0" + value;
+      return date.substring(-2)
     }
     
     componentWillMount() {
