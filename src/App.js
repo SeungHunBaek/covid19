@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import MapView from './components/MapView/MapView.js';
 import BarChart from './components/chart/BarChart';
 import { MASK, COVID_STATUS_KOREA, COVID_STATUS_WORLD } from './api/api';

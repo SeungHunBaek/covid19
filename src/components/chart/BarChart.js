@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CanvasJSReact  from '../../lib/canvasjs.react';
-import './Barchart.css';
+import './_Barchart.css';
 import * as NactionCode from '../../api/constans';
 
 let CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -29,6 +29,7 @@ class BarChart extends Component {
 
 		const date = new Date();
 		const stateDt = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
+		//const stateDt = date.getFullYear() +"0"+ (date.getMonth()+1) + (date.getDate()-1);
 		const propsData = this.props._data.item;
 		
 		for (let i = 0; i < propsData.length; i++) {
@@ -47,6 +48,7 @@ class BarChart extends Component {
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
+			console.log("dateStr" +dateStr )
 			graphData.push({
 				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
 				y: propsData[i].decideCnt,
@@ -99,7 +101,9 @@ class BarChart extends Component {
 	setStackedBarchartData = (type) => {
 		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
 		const graphData = [];
-		
+
+		console.log(worldInfos);
+
 		for (let i = 0; i < worldInfos.length; i++) {
 			
 			const nation_name = worldInfos[i].nationNmEn;
@@ -161,6 +165,7 @@ class BarChart extends Component {
 			}
 		}
 		graphData.sort(this.compareCnt);
+		console.log(graphData);
 		
 		return graphData;
 	}
