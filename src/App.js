@@ -24,9 +24,9 @@ class App extends Component {
     getApiData = async () => {
       const date = new Date();
       
-      const yesterday = date.getFullYear() +"0"+ (date.getMonth()+1) + (this.addZero(date.getDate()-1));
-      const twoMonthsAgo = date.getFullYear() +"0"+ (date.getMonth()-1) + (this.addZero(date.getDate()-1));
-      const _today = date.getFullYear() +"0"+ (date.getMonth()+1) + (this.addZero(date.getDate()));
+      const yesterday = date.getFullYear() +(this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
+      const twoMonthsAgo = date.getFullYear() + (this.addZero(date.getMonth()-1)) + (this.addZero(date.getDate()-1));
+      const _today = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
       const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
       const queryStr_yesterday = "&startCreateDt="+yesterday +"&endCreateDt="+_today;
 

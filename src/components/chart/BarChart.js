@@ -28,7 +28,7 @@ class BarChart extends Component {
 	preProccess = () => { 
 
 		const date = new Date();
-		const stateDt = date.getFullYear() +"0"+ (date.getMonth()+1) +""+ (date.getDate()-1);
+		const stateDt = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
 		const propsData = this.props._data.item;
 		
 		for (let i = 0; i < propsData.length; i++) {
@@ -176,6 +176,10 @@ class BarChart extends Component {
 	}
 	compareCnt(compare1, compare2) {
 		return compare1.y - compare2.y;
+	}
+	addZero(value) {
+		let date = "0" + value;
+		return date.substring(-2)
 	}
 	
 	
