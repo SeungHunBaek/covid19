@@ -44,7 +44,7 @@ class BarChart extends Component {
 	}
 	setCheckupInfoData = () => {
 		const propsData = this.props._data.item;
-		const graphData = [];
+		let graphData = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
@@ -59,7 +59,7 @@ class BarChart extends Component {
 	}
 	setDeathCntData = () => {
 		const propsData = this.props._data.item;
-		const graphData = [];
+		let graphData = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
@@ -73,7 +73,7 @@ class BarChart extends Component {
 	}
 	setCareCntData = () => {
 		const propsData = this.props._data.item;
-		const graphData = [];
+		let graphData = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
@@ -100,10 +100,8 @@ class BarChart extends Component {
 	}
 	setStackedBarchartData = (type) => {
 		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
-		const graphData = [];
-
-		console.log(worldInfos);
-
+		let graphData = [];
+		
 		for (let i = 0; i < worldInfos.length; i++) {
 			
 			const nation_name = worldInfos[i].nationNmEn;
@@ -184,7 +182,7 @@ class BarChart extends Component {
 	}
 	addZero(value) {
 		let date = "0" + value;
-		return date.substring(-2)
+		return date.slice(-2)
 	}
 	
 	
