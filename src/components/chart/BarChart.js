@@ -100,9 +100,11 @@ class BarChart extends Component {
 	}
 	setStackedBarchartData = (type) => {
 		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
+		const worldInfosLength = worldInfos.length;
+
 		let graphData = [];
 		
-		for (let i = 0; i < worldInfos.length; i++) {
+		for (let i = worldInfosLength === 360 ? worldInfosLength /2 : 0; i < worldInfosLength; i++) {
 			
 			const nation_name = worldInfos[i].nationNmEn;
 			

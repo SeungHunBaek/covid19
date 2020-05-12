@@ -25,9 +25,10 @@ class App extends Component {
       const date = new Date();
       
       const twoMonthsAgo = date.getFullYear() + (this.addZero(date.getMonth()-1)) + (this.addZero(date.getDate()-1));
+      const _yesterday = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
       const _today = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
       const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
-      const queryStr_yesterday = "&startCreateDt="+_today;
+      const queryStr_yesterday = "&startCreateDt="+_yesterday + "&endCreateDt="+_today;
 
       console.log("API Data");
       console.log(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
