@@ -104,7 +104,7 @@ class BarChart extends Component {
 
 		let graphData = [];
 		
-		for (let i = worldInfosLength === 360 ? worldInfosLength /2 : 0; i < worldInfosLength; i++) {
+		for (let i = worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1 : 0; i < worldInfosLength; i++) {
 			
 			const nation_name = worldInfos[i].nationNmEn;
 			
