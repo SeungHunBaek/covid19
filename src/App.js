@@ -23,14 +23,13 @@ class App extends Component {
 
     getApiData = async () => {
       const date = new Date();
-      
       const twoMonthsAgo = date.getFullYear() + (this.addZero(date.getMonth()-1)) + (this.addZero(date.getDate()-1));
-      const _yesterday = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
       const _today = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
+      
       const queryStr_twoMonthsAgo = "&startCreateDt="+twoMonthsAgo +"&endCreateDt="+_today;
-      const queryStr_yesterday = "&startCreateDt="+_yesterday + "&endCreateDt="+_today;
-
-      console.log("API Data");
+      const queryStr_yesterday = "&startCreateDt="+this.getStartDate(date) + "&endCreateDt="+this.getEndDate(date);
+      console.log("==================================");
+      console.log("API");
       console.log(COVID_STATUS_KOREA + queryStr_twoMonthsAgo);
       console.log(COVID_STATUS_WORLD + queryStr_yesterday);
       console.log("==================================");
@@ -41,11 +40,25 @@ class App extends Component {
       
       this.setState({ storeInfo : storeInfos, covidInfoOfWorldInfo:_items, covidInfoOfKoreaInfo:items, isLoading : false });
     }
+    getStartDate(date) {
+      let target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
+
+      if(date.getHours() < 12){
+        target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
+      }
+      return target;
+    }
+    getEndDate(date) {
+      let target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
+
+      if(date.getHours() < 12){
+        target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
+      }
+      return target;
+    }
 
     addZero(value) {
-      let date = "0" + value;
-      console.log(date.slice(-2));
-      return date.slice(-2);
+      return ("0" + value).slice(-2);
     }
     
     componentWillMount() {

@@ -48,7 +48,6 @@ class BarChart extends Component {
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
-			console.log("dateStr" +dateStr )
 			graphData.push({
 				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
 				y: propsData[i].decideCnt,
@@ -104,8 +103,8 @@ class BarChart extends Component {
 
 		let graphData = [];
 		
-		for (let i = worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1 : 0; i < worldInfosLength; i++) {
-			
+		//for (let i = worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1 : 0; i < worldInfosLength; i++) {
+		for (let i = 0; i < worldInfosLength; i++) {
 			const nation_name = worldInfos[i].nationNmEn;
 			
 			switch(nation_name) {
@@ -165,11 +164,9 @@ class BarChart extends Component {
 			}
 		}
 		graphData.sort(this.compareCnt);
-		console.log(graphData);
-		
+
 		return graphData;
 	}
-
 
 	numberWithCommas = (x) => {
 		
