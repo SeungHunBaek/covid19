@@ -4,7 +4,34 @@ import './_Barchart.css';
 import * as NactionCode from '../../api/constans';
 
 let CanvasJSChart = CanvasJSReact.CanvasJSChart;
-class BarChart extends Component {
+
+interface DataProps {
+	_data: any;
+	data: any;
+}
+interface State {
+	
+		// todaysState: any;
+		// checkupInfo: any;
+	
+		// decideCnt: number;						// 확진자 수
+		// clearCnt: number;							// 격리해제 수
+		// examCnt: number;							// 검사진행 수 1
+		// deathCnt: number;							// 사망자 수
+		// careCnt: number;							// 치료중 환자 수
+		// resutlNegCnt: number;					// 결과 음성 수 1
+		// accDefRate: string;				// 누적 확진률 1
+		// accExamCnt: number;						// 누적 검사 수
+		// accExamCompCnt: number;					// 누적 검사 완료 수
+		// seq: number;								// 게시글번호(감염현황 고유값)
+		// stateDt: number;						// 기준일
+		// stateTime: string;						// 기준시간
+		// createDt: string;	// 등록일시분초 
+		// updateDt: string;						// 수정일시분초
+	
+}
+
+class BarChart extends Component<DataProps, State> {
 
 	state = {
 		todaysState:[],
@@ -44,7 +71,7 @@ class BarChart extends Component {
 	}
 	setCheckupInfoData = () => {
 		const propsData = this.props._data.item;
-		let graphData = [];
+		let graphData : any[] = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
@@ -58,7 +85,7 @@ class BarChart extends Component {
 	}
 	setDeathCntData = () => {
 		const propsData = this.props._data.item;
-		let graphData = [];
+		let graphData : any[] = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
@@ -72,10 +99,10 @@ class BarChart extends Component {
 	}
 	setCareCntData = () => {
 		const propsData = this.props._data.item;
-		let graphData = [];
+		let graphData : any[] = [];
 		
 		for (let i = 0; i < propsData.length; i=i+10) {
-			const dateStr = propsData[i].stateDt+"";
+			const dateStr: string = propsData[i].stateDt+"";
 			graphData.push({
 				x: new Date(dateStr.substring(0,4)+"-"+dateStr.substring(4,6)+"-"+dateStr.substring(6,8)),
 				y: propsData[i].careCnt,
@@ -86,8 +113,8 @@ class BarChart extends Component {
 		return graphData;
 	}
 	setBarchartData = () => {
-		const todaysState = this.state.todaysState;
-		const graphData = [
+		const todaysState :any = this.state.todaysState;
+		const graphData :any[] = [
 			{ y: todaysState.accExamCnt, label: "누적검사", indexLabel: "累積検査数:　"+this.numberWithCommas(todaysState.accExamCnt),indexLabelFontColor: "black"},
 			{ y: todaysState.resutlNegCnt, label: "누적음성수", indexLabel: "累積陰性数:　"+this.numberWithCommas(todaysState.resutlNegCnt) },
 			{ y: todaysState.decideCnt, label: "확진자수", indexLabel: "感染者数:　"+this.numberWithCommas(todaysState.decideCnt)},
@@ -98,11 +125,11 @@ class BarChart extends Component {
 		return graphData;
 	}
 	setStackedBarchartData = (type) => {
-		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
+		const worldInfos: any[] = this.props.data.covidInfoOfWorldInfo.item;
 		//const worldInfosLength = worldInfos.length;
-		const worldInfosLength = worldInfos.length > 300 ? parseInt(worldInfos.length / 2) + 1: worldInfos.length ;
+		const worldInfosLength = worldInfos.length > 300 ? parseInt(String(worldInfos.length / 2)) + 1: worldInfos.length ;
 		//worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1: 
-		let graphData = [];
+		let graphData : any[] = [];
 		
 		for (let i = 0; i < worldInfosLength; i++) {
 		//for (let i = 0; i < worldInfosLength; i++) {
@@ -313,7 +340,7 @@ class BarChart extends Component {
 			},
 			legend:{
 				cursor: "pointer",
-				itemclick: this.toggleDataSeries
+			//	itemclick: this.toggleDataSeries
 			},
 			  data: [
 			  {
@@ -349,7 +376,7 @@ class BarChart extends Component {
 			</div>
 		);
 	}
-	addSymbols(e){
+	addSymbols(e: any){
 		// 단위설정
 		return e.value + "명";
 	}

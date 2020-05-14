@@ -4,13 +4,26 @@ import './MapView.css';
 import { SEARCH_ADD } from '../../api/api';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
-class MapView extends Component {
-    state = {
-        activeMarker: {},
-        selectedPlace: {},
-        selectedStoreInfo: {},
-        showingInfoWindow: false
-    };
+interface DataProps {
+    data: any;
+    storeInfo: any;
+    google: any;
+}
+
+interface DataState {
+    selectedPlace: any;
+    activeMarker: any;
+    selectedStoreInfo: any;
+    showingInfoWindow: boolean;
+}
+
+class MapView extends Component<DataProps,DataState> {
+    // state = {
+    //     activeMarker: {},
+    //     selectedPlace: {},
+    //     selectedStoreInfo: {},
+    //     showingInfoWindow: false
+    // };
     
     getStoreInfo = async () => {
         let selectedCode = this.state.selectedPlace.codeInfo;
@@ -85,7 +98,7 @@ class MapView extends Component {
           <Map
             google={ this.props.google }
             onClick={ this.onMapClicked }
-            style={ mapStyle }
+            // style={ mapStyle }
             zoom={ 11 }
             initialCenter={{ 
                 lat: 37.5855683, 
