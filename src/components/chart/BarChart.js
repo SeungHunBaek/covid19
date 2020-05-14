@@ -99,12 +99,13 @@ class BarChart extends Component {
 	}
 	setStackedBarchartData = (type) => {
 		const worldInfos = this.props.data.covidInfoOfWorldInfo.item;
-		const worldInfosLength = worldInfos.length;
-
+		//const worldInfosLength = worldInfos.length;
+		const worldInfosLength = worldInfos.length > 300 ? parseInt(worldInfos.length / 2) + 1: worldInfos.length ;
+		//worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1: 
 		let graphData = [];
 		
-		//for (let i = worldInfosLength > 300 ? parseInt(worldInfosLength / 2) + 1 : 0; i < worldInfosLength; i++) {
 		for (let i = 0; i < worldInfosLength; i++) {
+		//for (let i = 0; i < worldInfosLength; i++) {
 			const nation_name = worldInfos[i].nationNmEn;
 			
 			switch(nation_name) {
