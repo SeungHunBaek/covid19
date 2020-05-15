@@ -10,20 +10,40 @@ interface DataProps {
     google: any;
 }
 
+interface SelectedPlace {
+    codeInfo: any;
+    addr: any;
+    title: any;
+}
+interface SelectedStoreInfo {
+    code: any;
+    remain_stat: any;
+    created_at: any;
+}
+
 interface DataState {
-    selectedPlace: any;
-    activeMarker: any;
-    selectedStoreInfo: any;
+    selectedPlace: SelectedPlace ;
+    activeMarker: object|null|any ;
+    selectedStoreInfo: SelectedStoreInfo;
     showingInfoWindow: boolean;
 }
 
 class MapView extends Component<DataProps,DataState> {
-    // state = {
-    //     activeMarker: {},
-    //     selectedPlace: {},
-    //     selectedStoreInfo: {},
-    //     showingInfoWindow: false
-    // };
+    state:DataState = {
+        // activeMarker: [],
+        selectedPlace: {
+            codeInfo: null,
+            addr: null,
+            title: null,
+        },
+        activeMarker:{},
+        selectedStoreInfo: {
+            code: null,
+            remain_stat: null,
+            created_at: null
+        },
+        showingInfoWindow: false
+    };
     
     getStoreInfo = async () => {
         let selectedCode = this.state.selectedPlace.codeInfo;
@@ -98,7 +118,7 @@ class MapView extends Component<DataProps,DataState> {
           <Map
             google={ this.props.google }
             onClick={ this.onMapClicked }
-            // style={ mapStyle }
+            // style={mapStyle}
             zoom={ 11 }
             initialCenter={{ 
                 lat: 37.5855683, 
@@ -119,7 +139,7 @@ class MapView extends Component<DataProps,DataState> {
                 />
             ))}
             <InfoWindow
-              marker = { this.state.activeMarker }
+            //   marker = { this.state.activeMarker }
               onClose = { this.onInfoWindowClose }
               visible = { this.state.showingInfoWindow }
             >

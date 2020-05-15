@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/axios": "^0.14.0",
     "@types/canvasjs": "^1.9.5",
+    "@types/google-map-react": "^1.1.7",
     "@types/google-maps-react": "^2.0.4",
     "@types/node-sass": "^4.11.0",
     "@types/react": "^16.9.35",

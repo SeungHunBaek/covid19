@@ -99,10 +99,10 @@ class AppMain extends Component<{},State> {
                     Covid-19 Mask Map
                 </div>
                 <div className="MapView">
-                  {/* <MapView 
+                  <MapView 
                     data = { this.state }
                     storeInfo = { this.state.storeInfo }
-                    /> */}
+                    />
                 </div>
               </div>
               )
