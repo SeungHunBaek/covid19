@@ -29,7 +29,6 @@ class BarChart extends Component {
 
 		const date = new Date();
 		const stateDt = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
-		//const stateDt = date.getFullYear() +"0"+ (date.getMonth()+1) + (date.getDate()-1);
 		const propsData = this.props._data.item;
 		
 		for (let i = 0; i < propsData.length; i++) {
