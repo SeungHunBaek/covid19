@@ -30,7 +30,6 @@ interface DataState {
 
 class MapView extends Component<DataProps,DataState> {
     state:DataState = {
-        // activeMarker: [],
         selectedPlace: {
             codeInfo: null,
             addr: null,
@@ -109,10 +108,10 @@ class MapView extends Component<DataProps,DataState> {
     }
     
     render() {
-        const mapStyle = {
-            width: '100%',
-            height: '100%'
-        }
+        // const mapStyle = {
+        //     width: '100%',
+        //     height: '100%'
+        // }
         let { storeInfo } = this.props;
         return (
           <Map
@@ -139,7 +138,7 @@ class MapView extends Component<DataProps,DataState> {
                 />
             ))}
             <InfoWindow
-            //   marker = { this.state.activeMarker }
+              marker = { this.state.activeMarker }
               onClose = { this.onInfoWindowClose }
               visible = { this.state.showingInfoWindow }
             >
