@@ -4,11 +4,43 @@ import './MapView.css';
 import { SEARCH_ADD } from '../../api/api';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
-class MapView extends Component {
-    state = {
-        activeMarker: {},
-        selectedPlace: {},
-        selectedStoreInfo: {},
+interface DataProps {
+    data: any;
+    storeInfo: any;
+    google: any;
+}
+
+interface SelectedPlace {
+    codeInfo: any;
+    addr: any;
+    title: any;
+}
+interface SelectedStoreInfo {
+    code: any;
+    remain_stat: any;
+    created_at: any;
+}
+
+interface DataState {
+    selectedPlace: SelectedPlace ;
+    activeMarker: object|null|any ;
+    selectedStoreInfo: SelectedStoreInfo;
+    showingInfoWindow: boolean;
+}
+
+class MapView extends Component<DataProps,DataState> {
+    state:DataState = {
+        selectedPlace: {
+            codeInfo: null,
+            addr: null,
+            title: null,
+        },
+        activeMarker:{},
+        selectedStoreInfo: {
+            code: null,
+            remain_stat: null,
+            created_at: null
+        },
         showingInfoWindow: false
     };
     
@@ -76,16 +108,16 @@ class MapView extends Component {
     }
     
     render() {
-        const mapStyle = {
-            width: '100%',
-            height: '100%'
-        }
+        // const mapStyle = {
+        //     width: '100%',
+        //     height: '100%'
+        // }
         let { storeInfo } = this.props;
         return (
           <Map
             google={ this.props.google }
             onClick={ this.onMapClicked }
-            style={ mapStyle }
+            // style={mapStyle}
             zoom={ 11 }
             initialCenter={{ 
                 lat: 37.5855683, 

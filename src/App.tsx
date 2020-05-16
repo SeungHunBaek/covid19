@@ -3,23 +3,32 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import axios from 'axios';
 import './App.scss';
-import MapView from './components/MapView/MapView.js';
+import MapView from './components/MapView/MapView';
 import BarChart from './components/chart/BarChart';
 import { MASK, COVID_STATUS_KOREA, COVID_STATUS_WORLD } from './api/api';
 
-class App extends Component {
+
+interface State  {
+  storeInfo :any;
+  isLoading : boolean;
+  covidInfoOfWorldInfo :any;
+  covidInfoOfKoreaInfo :any;
+}
+
+class AppMain extends Component<{},State> {
     
-    constructor(props) {
-      super(props);
-      this.myRef  = React.createRef();
-    }
+    // constructor(props) {
+    //   super(props);
+    //   this.myRef  = React.createRef();
+    // }
+
     state = {
       storeInfo :[],
       isLoading : true,
       covidInfoOfWorldInfo :[],
       covidInfoOfKoreaInfo :[]
-
     }
+
 
     getApiData = async () => {
       const date = new Date();
@@ -40,7 +49,7 @@ class App extends Component {
       
       this.setState({ storeInfo : storeInfos, covidInfoOfWorldInfo:_items, covidInfoOfKoreaInfo:items, isLoading : false });
     }
-    getStartDate(date) {
+    getStartDate(date: Date) {
       let target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
 
       if(date.getHours() < 12){
@@ -48,7 +57,7 @@ class App extends Component {
       }
       return target;
     }
-    getEndDate(date) {
+    getEndDate(date: Date) {
       let target = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()));
 
       if(date.getHours() < 12){
@@ -57,7 +66,7 @@ class App extends Component {
       return target;
     }
 
-    addZero(value) {
+    addZero(value: number) {
       return ("0" + value).slice(-2);
     }
     
@@ -65,7 +74,7 @@ class App extends Component {
       this.getApiData();
     }
 
-    render() {
+    render () {
         return (
           <div>
             {
@@ -82,8 +91,8 @@ class App extends Component {
                 </div>
                 <div >
                   <BarChart 
-                    _data = { this.state.covidInfoOfKoreaInfo }
                     data = { this.state }
+                    _data = { this.state.covidInfoOfKoreaInfo }
                     />
                 </div>
                 <div className="App-header">
@@ -103,4 +112,5 @@ class App extends Component {
     }
 }
 
-export default App;
+export default AppMain;
+// export const Form: React.FunctionComponent = ({ children }) => <form />;
