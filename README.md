@@ -5,6 +5,10 @@
 # 프로젝트명
 > 국내외 코로나 정보 전달 및 공적 마스크 판매처 정보 제공
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b93c06cf10a1c8c44e23e19c6aad1bdae79155a
 ## 설치 방법
 
 ```sh
@@ -26,8 +30,7 @@ npm install --save-dev typescript
 타입스크립트 설정 파일을 생성
 npx typescript --init
 
-크롬설정
- --disable-web-security --user-data-dir="C://Chrome dev session"
+
 ```
 ## 사용 예제
 
@@ -35,14 +38,21 @@ npx typescript --init
 
 ## 개발 환경 설정
 
+<<<<<<< HEAD
 
 
 ```sh
 
+=======
+```sh
+크롬설정 
+ --disable-web-security --user-data-dir="C://Chrome dev session"
+>>>>>>> 5b93c06cf10a1c8c44e23e19c6aad1bdae79155a
 ```
 
 ## 업데이트 내역
 
+v.0.1.0 SPA
 
 ## 정보
 

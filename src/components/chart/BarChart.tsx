@@ -9,26 +9,8 @@ interface DataProps {
 	_data: any;
 	data: any;
 }
+
 interface State {
-	
-		// todaysState: any;
-		// checkupInfo: any;
-	
-		// decideCnt: number;						// 확진자 수
-		// clearCnt: number;							// 격리해제 수
-		// examCnt: number;							// 검사진행 수 1
-		// deathCnt: number;							// 사망자 수
-		// careCnt: number;							// 치료중 환자 수
-		// resutlNegCnt: number;					// 결과 음성 수 1
-		// accDefRate: string;				// 누적 확진률 1
-		// accExamCnt: number;						// 누적 검사 수
-		// accExamCompCnt: number;					// 누적 검사 완료 수
-		// seq: number;								// 게시글번호(감염현황 고유값)
-		// stateDt: number;						// 기준일
-		// stateTime: string;						// 기준시간
-		// createDt: string;	// 등록일시분초 
-		// updateDt: string;						// 수정일시분초
-	
 }
 
 class BarChart extends Component<DataProps, State> {
@@ -36,7 +18,6 @@ class BarChart extends Component<DataProps, State> {
 	state = {
 		todaysState:[],
 		checkupInfo:[],
-
 		decideCnt: 10635,						// 확진자 수
 		clearCnt: 7829,							// 격리해제 수
 		examCnt: 14186,							// 검사진행 수 1
@@ -52,12 +33,13 @@ class BarChart extends Component<DataProps, State> {
 		createDt: "2020-04-17 10:32:02.119",	// 등록일시분초 
 		updateDt: "null"						// 수정일시분초
 	}
+	// 데이터 전처리
 	preProccess = () => { 
 
 		const date = new Date();
 		const stateDt = date.getFullYear() + (this.addZero(date.getMonth()+1)) + (this.addZero(date.getDate()-1));
 		const propsData = this.props._data.item;
-		
+		// 현재 날짜 데이터만 state에 저장
 		for (let i = 0; i < propsData.length; i++) {
 			
 			if(stateDt === String(propsData[i].stateDt)) {
@@ -68,6 +50,7 @@ class BarChart extends Component<DataProps, State> {
 			}
 		}
 	}
+	// 확진자수 데이터 취득
 	setCheckupInfoData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
@@ -82,6 +65,7 @@ class BarChart extends Component<DataProps, State> {
 		}
 		return graphData;
 	}
+	// 사망자 데이터 취득
 	setDeathCntData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
@@ -96,6 +80,7 @@ class BarChart extends Component<DataProps, State> {
 		}
 		return graphData;
 	}
+	// 치료중 데이터 취득
 	setCareCntData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
@@ -111,6 +96,7 @@ class BarChart extends Component<DataProps, State> {
 		}
 		return graphData;
 	}
+	// barchart 데이터 취득
 	setBarchartData = () => {
 		const todaysState :any = this.state.todaysState;
 		const graphData :any[] = [
@@ -123,6 +109,7 @@ class BarChart extends Component<DataProps, State> {
 
 		return graphData;
 	}
+	// 세계 코로나 상황 데이터 취득
 	setStackedBarchartData = (type) => {
 		const worldInfos: any[] = this.props.data.covidInfoOfWorldInfo.item;
 		//const worldInfosLength = worldInfos.length;
@@ -133,8 +120,9 @@ class BarChart extends Component<DataProps, State> {
 		for (let i = 0; i < worldInfosLength; i++) {
 		//for (let i = 0; i < worldInfosLength; i++) {
 			const nation_name = worldInfos[i].nationNmEn;
-			
+			// 각국 데이터 취득
 			switch(nation_name) {
+				// 미국은 이름이 길어서 별도 처리
 				case NactionCode.AMERICA_NAME :
 					if(type === "infectedPerson") {
 						graphData.push({
@@ -166,6 +154,7 @@ class BarChart extends Component<DataProps, State> {
 				case NactionCode.FRANCE_NAME :
 				case NactionCode.UK_NAME :
 				case NactionCode.SPAIN_NAME :
+					// 확진자
 					if(type === "infectedPerson") {
 						graphData.push({
 							label: worldInfos[i].nationNmEn,
@@ -175,6 +164,7 @@ class BarChart extends Component<DataProps, State> {
 							indexLabelPlacement: "inside",
 							indexLabelFontColor: "black"
 						});
+					// 사망자
 					} else if(type === "deadPerson") {
 						graphData.push({
 							label: worldInfos[i].nationNmEn,
@@ -190,22 +180,24 @@ class BarChart extends Component<DataProps, State> {
 				break;
 			}
 		}
+		// 확진자 높음순으로 정렬
 		graphData.sort(this.compareCnt);
 
 		return graphData;
 	}
-
+	// 천 단위(,) 설정처리
 	numberWithCommas = (x) => {
 		
 		return parseInt(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-		
 	componentWillMount() {
 		this.preProccess()
 	}
+	// 높음순 정렬처리
 	compareCnt(compare1, compare2) {
 		return compare1.y - compare2.y;
 	}
+	// 날짜형식 변환처리
 	addZero(value) {
 		let date = "0" + value;
 		return date.slice(-2)
