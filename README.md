@@ -5,11 +5,6 @@
 # 프로젝트명
 > 국내외 코로나 정보 전달 및 공적 마스크 판매처 정보 제공
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
-![](../header.png)
 
 ## 설치 방법
 
@@ -44,7 +39,7 @@ npx typescript --init
 
 ## 업데이트 내역
 
-v.0.1 SPA
+v.0.1.0 SPA
 
 ## 정보
 

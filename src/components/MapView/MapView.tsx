@@ -43,13 +43,15 @@ class MapView extends Component<DataProps,DataState> {
         },
         showingInfoWindow: false
     };
-    
+    // 선택한 판매처 정보취득 처리
     getStoreInfo = async () => {
         let selectedCode = this.state.selectedPlace.codeInfo;
         let addr = this.state.selectedPlace.addr;
         let splitStr = addr.split(" ");
+        // 주소로 해당 위치에 존재하는 점포들 취득
         const { data } = await axios.get(SEARCH_ADD +splitStr[0]+" "+ splitStr[1]);    
         for (let i = 0; i < data.count; i++) {
+            // 점포 코드를 검색
             if(data.stores[i].code === selectedCode) {
                 this.setState({
                     selectedStoreInfo: data.stores[i],
@@ -59,7 +61,7 @@ class MapView extends Component<DataProps,DataState> {
             }
         }
     }
-
+    // 선택 마커정보 저장
     onMarkerClick = (props, marker) => {
         this.setState({
             activeMarker: marker,
@@ -67,13 +69,14 @@ class MapView extends Component<DataProps,DataState> {
         });
         this.getStoreInfo();
     }
-    
+    // 정보창 초기화 처리
     onInfoWindowClose = () => {
         this.setState({
             activeMarker: null,
             showingInfoWindow: false
         });
-    }   
+    }
+    // 정보창 표시 처리
     onMapClicked = () => {
         if (this.state.showingInfoWindow)
             this.setState({
@@ -81,8 +84,8 @@ class MapView extends Component<DataProps,DataState> {
             showingInfoWindow: false
         });
     };
-
-    getRemain_stat = (data) => {
+    // 표시데이터 변환처리
+    getRemain_stat = (data:string) => {
         let resultStr = '';
 
         switch(data) {
