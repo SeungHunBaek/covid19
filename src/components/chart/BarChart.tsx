@@ -54,7 +54,7 @@ class BarChart extends Component<DataProps, State> {
 	setCheckupInfoData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
-		
+		// 10일 단위로 데이터를 취득
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
 			graphData.push({
@@ -69,7 +69,7 @@ class BarChart extends Component<DataProps, State> {
 	setDeathCntData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
-		
+		// 10일 단위로 데이터를 취득
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr = propsData[i].stateDt+"";
 			graphData.push({
@@ -84,7 +84,7 @@ class BarChart extends Component<DataProps, State> {
 	setCareCntData = () => {
 		const propsData = this.props._data.item;
 		let graphData : any[] = [];
-		
+		// 10일 단위로 데이터를 취득
 		for (let i = 0; i < propsData.length; i=i+10) {
 			const dateStr: string = propsData[i].stateDt+"";
 			graphData.push({
