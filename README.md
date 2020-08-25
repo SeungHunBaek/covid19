@@ -5,7 +5,10 @@
 # 프로젝트명
 > 국내외 코로나 정보 전달 및 공적 마스크 판매처 정보 제공
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 5b93c06cf10a1c8c44e23e19c6aad1bdae79155a
 ## 설치 방법
 
 ```sh
@@ -17,10 +20,13 @@ git init
 git remote add origin https://github.com/SeungHunBaek/covid19.git
 git fetch --all
 git reset --hard origin/master
+
 타입 정의 파일다운
 npm install --save @types/react @types/react-dom
+
 typescript 패키지
 npm install --save-dev typescript
+
 타입스크립트 설정 파일을 생성
 npx typescript --init
 
@@ -32,9 +38,16 @@ npx typescript --init
 
 ## 개발 환경 설정
 
+<<<<<<< HEAD
+
+
+```sh
+
+=======
 ```sh
 크롬설정 
  --disable-web-security --user-data-dir="C://Chrome dev session"
+>>>>>>> 5b93c06cf10a1c8c44e23e19c6aad1bdae79155a
 ```
 
 ## 업데이트 내역
@@ -45,7 +58,6 @@ v.0.1.0 SPA
 
 Baek – 
 
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.
 
 
 ## 기여 방법
