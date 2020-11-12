@@ -2,13 +2,16 @@ import * as React from 'react';
 import Layout from './Layout';
 import Header from './Header';
 import Navigation from './Navigation';
+// import TabLayout from './TabLayout';
+import Intro from './Intro';
+import styled from 'styled-components';
+
 
 interface Props {
 }
 interface State {
   username: string
 }
-
 
 
 class App extends React.Component<Props,State> {
@@ -33,7 +36,12 @@ class App extends React.Component<Props,State> {
 
   render() {
     return (
-      <Navigation/>
+      <div>
+        <Navigation/>
+        {/* <TabLayout></TabLayout> */}
+          <Intro></Intro>
+      </div>
+
       // <Layout>
       //   <Header/>
       // </Layout>
