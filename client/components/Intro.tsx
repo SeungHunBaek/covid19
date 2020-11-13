@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Carousel, Nav, NavDropdown} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Carousel } from 'react-bootstrap';
 import styled from 'styled-components';
 
 

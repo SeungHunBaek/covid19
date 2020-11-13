@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navigation = (props) => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Navbar.Brand href="#home">Covid19 Map</Navbar.Brand>
+    <Navbar.Brand href="#home">Covid19 Status</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
