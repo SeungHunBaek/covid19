@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Navigation from './Navigation';
-import Main from './Main';
+import Navigation from '../components/Navigation';
+import Main from '../components/Main';
 
 interface Props {
 }
@@ -8,7 +8,7 @@ interface State {
 }
 
 
-class App extends React.Component<Props,State> {
+class HomeIndex extends React.Component<Props,State> {
 
   constructor(props:Props) {
     super(props);
@@ -36,4 +36,4 @@ class App extends React.Component<Props,State> {
   }
 }
 
-export default App;
+export default HomeIndex;

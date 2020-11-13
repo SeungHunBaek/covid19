@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Navigation from './Navigation';
-import Main from './Main';
+import Navigation from '../../components/Navigation';
+import Main from '../../components/Main';
 
 interface Props {
 }

@@ -25,7 +25,7 @@ const Wrapper = styled.div`
         }
     }
 `;
-const Intro = (props) => {
+const Main = (props) => {
     return (
         <Wrapper >
         <Carousel>
@@ -71,4 +71,4 @@ const Intro = (props) => {
     )
 }
 
-export default Intro;
+export default Main;
