@@ -30,8 +30,8 @@ class App extends React.Component<Props,State> {
   render() {
     return (
       <div>
-        <Navigation/>
-        <Main></Main>
+        {/* <Navigation/>
+        <Main></Main> */}
       </div>
     )
   }

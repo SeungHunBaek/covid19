@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 const Navigation = (props) => {
@@ -8,9 +9,9 @@ const Navigation = (props) => {
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href="/">Introduce</Nav.Link>
-        <Nav.Link href="/koreaData">Korea Data</Nav.Link>
-        <Nav.Link href="/globalData">Global Data</Nav.Link>
+        <Nav.Link ><Link to="/">Introduce</Link></Nav.Link>
+        <Nav.Link ><Link to="/koreaData">Korea Data</Link></Nav.Link>
+        <Nav.Link ><Link to="/globalData">Global Data</Link></Nav.Link>
         {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

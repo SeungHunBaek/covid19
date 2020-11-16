@@ -23,10 +23,13 @@ class DemoIndex extends React.Component<Props,State> {
 
   render() {
     return (
-      <div>
-        <Navigation/>
-        <Demo></Demo>
-      </div>
+      <Switch>
+        <Route path='/koreaData' exact component={() => <Demo/>}/>
+      </Switch>
+      // <div>
+      //   <Navigation/>
+      //   <Demo></Demo>
+      // </div>
     )
   }
 }
