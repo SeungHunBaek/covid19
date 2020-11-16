@@ -25,11 +25,11 @@ const Wrapper = styled.div`
         }
     }
 `;
-const Main = (props) => {
+const Main = () => {
     return (
         <Wrapper >
         <Carousel>
-            <Carousel.Item interval={1000000}>
+            <Carousel.Item interval={1000}>
             
                 <Carousel.Caption>
                     <h3>First slide label</h3>
