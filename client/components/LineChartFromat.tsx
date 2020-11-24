@@ -1,7 +1,7 @@
 // import * as React from 'react';
 import * as React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import Navigation from '../components/Navigation';
+
 
 
 const data = [
@@ -28,19 +28,18 @@ const data = [
   },
 ];
 
-class Demo extends React.PureComponent {
+class LineChartFromat extends React.PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
 
   render() {
     return (        
       <div>
-        <Navigation/>
         <LineChart
-            width={5000}
-            height={3000}
+            width={600}
+            height={600}
             data={data}
             margin={{
-            top: 350, right: 30, left: 20, bottom: 5,
+            top: 50, right: 30, left: 20, bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />
@@ -57,4 +56,4 @@ class Demo extends React.PureComponent {
 }
 
 
-export default Demo;
+export default LineChartFromat;

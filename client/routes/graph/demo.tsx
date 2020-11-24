@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Switch, RouteComponentProps, Route, Redirect, withRouter } from 'react-router-dom';
 import Navigation from '../../components/Navigation';
 import Demo from '../../pages/demo';
+import koreaData from '../../pages/koreaData';
+
 
 interface Props {
 }
@@ -24,12 +26,9 @@ class DemoIndex extends React.Component<Props,State> {
   render() {
     return (
       <Switch>
-        <Route path='/koreaData' exact component={() => <Demo/>}/>
+        {/* <Route path='/koreaData' exact component={() => <koreaData/>}/> */}
       </Switch>
       // <div>
-      //   <Navigation/>
-      //   <Demo></Demo>
-      // </div>
     )
   }
 }
