@@ -4,7 +4,6 @@ import HomeIndex from '../pages/HomeIndex';
 import koreaData from '../pages/koreaData';
 import Demo from '../pages/demo';
 
-
 const Root: React.FC = ()=>(
     <BrowserRouter>
         <Switch>
