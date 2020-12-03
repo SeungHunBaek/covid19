@@ -19,12 +19,19 @@ class HomeIndex extends React.Component<Props,State> {
   state: State  = {
   }
   
-  // componentDidMount() {
-  //   fetch('http://localhost:3001/api')
-  //   .then(res => res.json())
-  //   .then(data => 
-  //     this.setState({username:data.username}));
-  // };
+  componentDidMount() {
+    fetch('http://localhost:3001/hello')
+    .then(res => res.json())
+    .then(data => 
+      // this.setState({username:data.username})
+      this.print(data.message)
+    );
+  };
+  print(str:string){
+    console.log("Frontend print()=====================");
+    console.log(str);
+    console.log("==================================");
+  }
 
   render() {
     return (
