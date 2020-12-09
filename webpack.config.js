@@ -28,8 +28,11 @@ module.exports = {
     compress: true,
     port: 3000,
     proxy: {
-      "/": "http://localhost"
-  }
+      "*": {
+        target: "http://localhost:3001",
+        secure: false
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
