@@ -4,7 +4,9 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const port = process.env.PORT || 3001;
-// const api = require("./routes/index");
+const request = require('request');
+const WOLRD_API = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson?serviceKey=e/u5HiiZcpglw2q8nndKG60KcqEAnOaOLYiLGQJZa4klvndij7SlvvQAxvRLifAESwNq5IKZH4lVjeSd5uS/WQ==&numOfRows=1000";
+const router = require('./routes/api')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,24 +15,35 @@ app.use(morgan('short'));
 
 // const config = require('config');
 // console.log(config.get('title'));
-
 // app.use("api",api);
 
-app.get("/hello", (req, res) => {
-  console.log("Backend api()==============================");
-  res.send({ message: "Hello api Express!" });
-  console.log("==========================================")
-});
+// app.get("/test", (req, res) => {
+//   console.log("Backend api()==============================");
+//   console.log(WOLRD_API);
+//   let worldData = callWorldData();
+//   res.send({ message: "Hello api Express!" });
+//   console.log("==========================================")
+// });
+// function callWorldData(){
+//   request(WOLRD_API,(error, res, body)=>{
+//     console.log("callWorldData()")
+//     console.log("[res]: "+res);
+//     console.log("[body]: "+body);
+//     console.log("=============================");
+//   })
+// }
 
 // app.use('/api', (req, res) => {
 //   res.json({username:'baekCL'})}
 // );
 
-app.use('/koreaData', (req, res) => {
-  console.log("koreaData()");
-  res.json({username:'koreaData'})
-});
+// app.use('/koreaData', (req, res) => {
+//   console.log("koreaData()");
+//   res.json({username:'koreaData'})
+// });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
 });
+
+app.use("/api",router);
