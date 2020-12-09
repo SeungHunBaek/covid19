@@ -4,8 +4,6 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const port = process.env.PORT || 3001;
-const request = require('request');
-const WOLRD_API = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson?serviceKey=e/u5HiiZcpglw2q8nndKG60KcqEAnOaOLYiLGQJZa4klvndij7SlvvQAxvRLifAESwNq5IKZH4lVjeSd5uS/WQ==&numOfRows=1000";
 const router = require('./routes/api')
 
 app.use(bodyParser.json());
