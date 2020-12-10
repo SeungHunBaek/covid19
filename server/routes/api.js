@@ -8,10 +8,9 @@ router.get('/world', function(req, res, next) {
   console.log("router Test world")
   callWorldDataAPI(worldData => {
     let resData = convertXml(worldData);
-    res.json(resData);
+    res.send(resData);
   });
 });
-
 
 function callWorldDataAPI(callback){
   request(WOLRD_API,(error, res, body)=>{
