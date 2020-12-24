@@ -5,7 +5,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const port = process.env.PORT || 3001;
 const router = require('./routes/api')
+const path = require('path') ;
 
+// app.use(express.static(path.join(__dirname, 'public'))) 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
