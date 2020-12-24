@@ -19,7 +19,7 @@ class HomeIndex extends React.Component<Props,State> {
   }
   //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
   componentWillMount(){
-    this.print_test("http://localhost:3001/api/world");
+    // this.print_test("http://localhost:3001/api/world");
   }
   //컴포넌트가 만들어지고 render가 호출된 이후에 호출.
   componentDidMount() {
