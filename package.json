@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SeungHunBaek/covid19/issues"
   },
-  "homepage": "https://github.com/SeungHunBaek/covid19#readme"
+  "homepage": "https://github.com/SeungHunBaek/covid19#readme",
+  "dependencies": {
+    "@nestjs/common": "^7.6.15"
+  }
 }
