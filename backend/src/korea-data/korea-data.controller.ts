@@ -7,8 +7,11 @@ export class KoreaDataController {
     constructor(private readonly koreaDataService: KoreaDataService) {}
     
     @Get()
-    getStatus(): string {
+    async getStatus(): Promise<object> {
 
-        return this.koreaDataService.getStatus();
+        const infState: object = await this.koreaDataService.getStatus();
+
+        console.log(`[KoreaDataController]: infState: ${JSON.stringify(infState, null, 4)}`);
+        return infState;
     }
 }
