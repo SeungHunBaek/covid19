@@ -1,0 +1,14 @@
+.Default-align {
+  text-align: center;
+}
+
+.Default-content {
+  background-color: #282c34;
+  width: 30vh;
+  height: 89.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  font-size: calc(10px + 1.5vmin);
+  color: white;
+}
