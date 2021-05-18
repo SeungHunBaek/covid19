@@ -1,0 +1,7 @@
+.content {
+  flex-direction: column;
+}
+.content-align {
+  display: flex;
+  flex-direction: row;
+}

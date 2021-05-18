@@ -5,16 +5,14 @@ function Navigation() {
   return (
       <div className="Navigation-align">
           <div className="Navigation-content">
-              <div>
-                <Link to="/"> 
-                  <button> main </button>
-                </Link>
-              </div>
-              <div>
-                {/* <Link to="/temp"> 
-                  <button> temp </button>
-                </Link> */}
-              </div>
+            <ul>
+              <li>
+               <Link to='/'>temp</Link>
+              </li>
+              <li>
+               <Link to='/main'>main</Link>
+              </li>
+            </ul>
           </div>
       </div>
   );
