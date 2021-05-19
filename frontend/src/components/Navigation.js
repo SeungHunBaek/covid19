@@ -7,10 +7,10 @@ function Navigation() {
           <div className="Navigation-content">
             <ul>
               <li>
-               <Link to='/'>temp</Link>
+               <Link to='/'>home</Link>
               </li>
               <li>
-               <Link to='/main'>main</Link>
+               <Link to='/korea'>korea</Link>
               </li>
             </ul>
           </div>
