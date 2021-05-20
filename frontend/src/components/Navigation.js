@@ -1,5 +1,5 @@
 import './Navigation.css';
-import {BrowserRouter, Route, Switch, Link, Redirect} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Navigation() {
   return (
