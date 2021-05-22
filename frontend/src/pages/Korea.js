@@ -4,17 +4,17 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Content from '../components/Content';
+import LineChart from '../components/SimpleLineChart';
 
 class Korea extends React.Component {
     
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
-    componentWillMount() {
+    async componentWillMount() {
         const url = `http://localhost:3000/korea-data`;
  
-        axios.get(url)
-        .then((response)=>{
-            console.log(`${JSON.stringify(response, null, 4)}`);
-        })
+        const {data:{items:{item}} } = await axios.get(url)
+        console.log(item);
+        
     }
 
     render() {
@@ -23,7 +23,7 @@ class Korea extends React.Component {
                  <Header/>
                  <div className="align">
                     <Navigation/>
-                    <Content/>
+                    <LineChart/>
                 </div>
             </div>
         )
