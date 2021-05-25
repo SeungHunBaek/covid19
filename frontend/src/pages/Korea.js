@@ -20,10 +20,12 @@ class Korea extends React.Component {
 
         console.log(item);
         for (let i = item.length-1; 0 <= i; i--) {
-
+            let date = item[i].stateDt + "";
+            console.log(date.substring(0,4)+date.substring(4,6)+date.substring(6,8))
             chartData.push({
-                name: item[i].stateDt,
-                cnt: item[i].decideCnt
+                name: `${date.substring(0,4)}-${date.substring(4,6)}-${date.substring(6,8)}`,
+                "확진자수": item[i].decideCnt
+                // x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             });
         }
 
