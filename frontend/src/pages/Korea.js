@@ -3,7 +3,6 @@ import './Korea.css';
 import axios from 'axios';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
-import Content from '../components/Content';
 import BarChart from '../components/BarChart';
 
 class Korea extends React.Component {

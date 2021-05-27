@@ -1,6 +1,5 @@
 import React from 'react';
 import './Content.css';
-import Header from '../components/Header';
 class Content extends React.Component {
     
     render() {
