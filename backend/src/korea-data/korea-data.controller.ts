@@ -14,4 +14,11 @@ export class KoreaDataController {
         console.log(`[KoreaDataController]: infState: ${JSON.stringify(infState, null, 4)}`);
         return infState;
     }
+    @Get('/localStatus')
+    async localStatus(): Promise<object> {
+
+        const localStatus: object = await this.koreaDataService.localStatus();
+
+        return localStatus;
+    }
 }
