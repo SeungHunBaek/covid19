@@ -32,31 +32,39 @@ export class KoreaDataService {
         this.getStartCreateDt();
         this.getEndCreateDt();
 
-        const item = localState.data.response.body.items;
-        item.map( (data: object) => {
-            console.log(data)
+        const items = localState.data.response.body.items;
+        let total = [];
+        items.item.map( (data: any) => {
+            if(data.gubunEn === 'Total') {
+                total.push(data);
+            }
         });
-        console.log(`[KoreaDataController]: item: ${JSON.stringify(item, null, 4)}`);
-        return localState.data.response.body.items;
+        return total;
     }
-
+    // 검색시작 일자
     getStartCreateDt() {
         const date = new Date();
+        // 9시 이전 데이터는 미갱신 상태이므로 전날짜의 데이터를 취득한다
         const updateDate = date.getHours() > 9 ? this.calculateDate(date, -6) : this.calculateDate(date, -7);
         let startDate: string = `${date.getFullYear()}${this.subZero(date.getMonth()+1)}${this.subZero(updateDate)}`;
+
         return startDate;
     }
+    // 검색종료 일자
     getEndCreateDt() {
         const date = new Date();
+        // 9시 이전 데이터는 미갱신 상태이므로 전날짜의 데이터를 취득한다
         const updateDate = date.getHours() > 9 ? this.calculateDate(date, 0): this.calculateDate(date, -1);
         let endDate: string = `${date.getFullYear()}${this.subZero(date.getMonth()+1)}${this.subZero(updateDate)}`;
 
        return endDate;
     }
+    //
     calculateDate(date: Date, value: number) {
         date.setDate(date.getDate()+value);
         return date.getDate();
     }
+    // 날짜 포멧변환 처리
     subZero(int: number) {
         const str = ('0'+int).slice(-2);
         return str;

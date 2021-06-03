@@ -15,12 +15,10 @@ export class KoreaDataController {
         return infState;
     }
     @Get('/localStatus')
-    async localStatus(): Promise<string> {
-    // async localStatus(): Promise<object> {
+    async localStatus(): Promise<object> {
 
         const localStatus: object = await this.koreaDataService.localStatus();
 
-        console.log(`[KoreaDataController]: localStatus: ${JSON.stringify(localStatus, null, 4)}`);
-        return JSON.stringify(localStatus, null, 4);
+        return localStatus;
     }
 }
