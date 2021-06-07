@@ -1,4 +1,3 @@
-import "./styles.css";
 import React, { FunctionComponent } from "react";
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from "recharts";
 
@@ -76,7 +75,8 @@ const CustomizedAxisTick = (props) => {
   );
 };
 
-export default function App() {
+export default function CumulativeLineChart(props) {
+    
   return (
     <LineChart
       width={500}
