@@ -34,6 +34,7 @@ export class KoreaDataService {
 
         const items = localState.data.response.body.items;
         let total = [];
+        // 합계 데이터만 취득
         items.item.map( (data: any) => {
             if(data.gubunEn === 'Total') {
                 total.push(data);
@@ -59,7 +60,7 @@ export class KoreaDataService {
 
        return endDate;
     }
-    //
+    // 날짜 계산처리
     calculateDate(date: Date, value: number) {
         date.setDate(date.getDate()+value);
         return date.getDate();
