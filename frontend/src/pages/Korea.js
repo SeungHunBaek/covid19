@@ -34,7 +34,7 @@ class Korea extends React.Component {
                 // x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             });
         }
-
+        
         // this.setState({ worldData: item });
         this.setState({datas :chartData});
     }
@@ -42,7 +42,7 @@ class Korea extends React.Component {
     async getDomesticRegionData() {
         const url = `http://localhost:3000/korea-data/localStatus`;
  
-        const {data} = await axios.get(url)
+        const { data } = await axios.get(url)
         let chartData = []
         
         console.log(`baek: ${JSON.stringify(data, null, 4)}`);

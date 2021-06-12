@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from "recharts";
 
 const data = [
@@ -62,26 +62,50 @@ const CustomizedAxisTick = (props) => {
   return (
     <g transform={`translate(${x},${y})`}>
       <text
-        x={0}
+        x={30}
         y={0}
-        dy={16}
+        dy={20}
         textAnchor="end"
         fill="#666"
-        transform="rotate(-35)"
+        transform="rotate(0)"
       >
         {payload.value}
       </text>
     </g>
   );
 };
+const CustomizedYAxisTick = (props) => {
+  const { x, y, payload } = props;
+  const labelY = numberWithCommas(payload.value);
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={-20}
+        dy={20}
+        textAnchor="end"
+        fill="#666"
+        transform="rotate(0)"
+      >
+        {labelY}
+      </text>
+    </g>
+  );
+};
+
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 export default function CumulativeLineChart(props) {
-    
+    console.log('==')
+    console.log(props.propsDatas)
+    const datas = props.propsDatas;
   return (
     <LineChart
-      width={500}
-      height={300}
-      data={data}
+      width={1000}
+      height={500}
+      data={datas}
       margin={{
         top: 20,
         right: 30,
@@ -90,14 +114,14 @@ export default function CumulativeLineChart(props) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
-      <YAxis />
-      <Tooltip />
+      <XAxis dataKey="name"  height={60} tick={<CustomizedAxisTick />} />
+      <YAxis dataKey="확진자수" domain={[150000, 'auto']} tick={<CustomizedYAxisTick />}  />
+      <Tooltip content={<CustomTooltip />}/>
       <Legend />
-      <Line type="monotone" dataKey="pv" stroke="#8884d8">
+      <Line type="monotone" dataKey="확진자수" stroke="#8884d8">
         <LabelList content={<CustomizedLabel />} />
       </Line>
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
     </LineChart>
   );
 }
