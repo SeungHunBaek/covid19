@@ -1,0 +1,14 @@
+.line-direction {
+  flex-direction: column;
+}
+.line-content-align {
+  display: flex;
+  flex-direction: row;
+}
+.line-tooltip-content {
+  background: white;
+  border: solid 1px black;
+  width: 200px
+  /* display: flex;
+  flex-direction: column; */
+}
