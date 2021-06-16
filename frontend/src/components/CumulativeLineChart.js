@@ -1,7 +1,7 @@
 import React from "react";
 import './Chart.css';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from "recharts";
-
+// X축 라벨
 const CustomizedLabel = (props) => {
   const { x, y, stroke, value } = props;
   const dotValue = numberWithCommas(value);
@@ -19,7 +19,7 @@ const CustomizedLabel = (props) => {
     </text>
   );
 };
-
+// X축 tick
 const CustomizedAxisTick = (props) => {
   const { x, y, payload } = props;
 
@@ -38,6 +38,7 @@ const CustomizedAxisTick = (props) => {
     </g>
   );
 };
+// Y축 tick
 const CustomizedYAxisTick = (props) => {
   const { x, y, payload } = props;
   const labelY = numberWithCommas(payload.value);
@@ -57,12 +58,13 @@ const CustomizedYAxisTick = (props) => {
   );
 };
 
+// tootip 디자인
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="line-tooltip-content">
         <p className="label">{`${label}`}</p>
-        <p className="label">{`${numberWithCommas(payload[0].value)}`}명</p>
+        <p className="label">{`누적 ${numberWithCommas(payload[0].value)}`}명</p>
       </div>
     );
   }
@@ -74,10 +76,11 @@ const CustomTooltip = ({ active, payload, label }) => {
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+// 마우스 오버했을경우 원형 디자인
 const CustomizedActiveDot = () => {
   return {stroke: 'red', strokeWidth: 1, fill:'red', r: 7};
 }
+// 그래프상 원형 디자인
 const CustomizedDot = () => {
   return {stroke: 'red', strokeWidth: 1, fill:'red', r: 9};
 }

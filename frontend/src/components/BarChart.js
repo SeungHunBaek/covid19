@@ -1,16 +1,7 @@
 import React from "react";
+import './Chart.css';
 // import { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend } from "recharts";
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from "recharts";
-
-const renderLegend = (props) => {
-  const { payload } = props;
-  console.log('barChart payload')
-  console.log(payload);
-  payload.dataKey = 'aaa';
-  return (
-    <span className="recharts-legend-item-text" >확진자수</span>
-  );
-}
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, Surface, Symbols} from "recharts";
 
 export default function barChart(props) {
   // console.log(props.propsDatas);
@@ -33,11 +24,12 @@ export default function barChart(props) {
       <YAxis 
         label={{ value: "명" , offset: 30, angle: 0, position: 'top' }} 
         type="number" 
+        ticks={[100,200,300,400,500,600,700]}
         domain={[0, 'dataMax']} />
       <Tooltip 
         formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
       {/* <Legend displayName= 'ㅊㅊ'/> */}
-      <Legend content= {renderLegend} />
+      <Legend verticalAlign="bottom" content= {renderLegend} />
 
       {/* <Label value="Pages of my website" /> */}
       <Bar dataKey="incDec" barSize={40} fill="#FA5858" unit="명"/>
