@@ -6,6 +6,7 @@ import Navigation from '../components/Navigation';
 import BarChart from '../components/BarChart';
 import LineChart from '../components/CumulativeLineChart';
 import getDomesticData from '../apis/DomesticData';
+import getDomesticRegionData from '../apis/DomesticRegionData';
 
 class Korea extends React.Component {
     
@@ -15,18 +16,10 @@ class Korea extends React.Component {
     }
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
     async componentWillMount() {
+        // 국내 데이터
         this.setState({datas :getDomesticData()});
-        this.getDomesticRegionData();
-    }
-
-    // 국내 데이터
-
-    // 국내 지역별 데이터 합계
-    async getDomesticRegionData() {
-        const url = `http://localhost:3000/korea-data/localStatus`;
- 
-        const { data } = await axios.get(url)
-        this.setState({ regionData: data });
+        // 국내 지역별 데이터 합계
+        this.setState({regionData :getDomesticRegionData()});
     }
 
     render() {
