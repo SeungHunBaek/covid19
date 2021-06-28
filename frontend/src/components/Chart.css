@@ -1,0 +1,29 @@
+.line-direction {
+  flex-direction: column;
+}
+.line-content-align {
+  display: flex;
+  flex-direction: row;
+}
+.line-tooltip-content {
+  /* background: white;
+  border: solid 1px black;
+  width: 200px */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  width: 150px 
+  /* display: flex;
+  flex-direction: column; */
+}
+.bar-legend-item{  
+  display: flex;
+  text-align: center;
+  align-items: center; 
+}
+.bar-legend-item-text{
+  color: #FA5858;
+  display: flex;
+  text-align: center;
+}
