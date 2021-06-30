@@ -28,28 +28,19 @@ class Korea extends React.Component {
         for (let i = item.length-1, j = 0; 7 > j; i--) {
             j++;
             let date = item[i].stateDt + "";
-            // console.log(date.substring(0,4)+date.substring(4,6)+date.substring(6,8))
             chartData.push({
                 name: `${date.substring(0,4)}-${date.substring(4,6)}-${date.substring(6,8)}`,
                 "확진자수": item[i].decideCnt
-                // x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             });
         }
         
-        // this.setState({ worldData: item });
         this.setState({datas :chartData});
     }
     // 국내 지역별 데이터 합계
     async getDomesticRegionData() {
         const url = `http://localhost:3000/korea-data/localStatus`;
- 
         const { data } = await axios.get(url)
-        let chartData = []
-        
-        console.log(`baek: ${JSON.stringify(data, null, 4)}`);
-
         this.setState({ regionData: data });
-        // this.setState({datas :chartData});
     }
 
     render() {
@@ -58,10 +49,11 @@ class Korea extends React.Component {
                  <Header/>
                  <div className="align-row">
                     <Navigation/>
-                        <div className="align-column">
-                            <LineChart propsDatas = {this.state.datas}/>
-                            <BarChart propsDatas = {this.state.regionData}/>
-                        </div>
+                    <div className="align-column">
+                        <Summary/>
+                        <LineChart propsDatas = {this.state.datas}/>
+                        <BarChart propsDatas = {this.state.regionData}/>
+                    </div>
                 </div>
             </div>
         )

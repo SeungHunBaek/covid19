@@ -1,0 +1,9 @@
+.align-row {
+    display: flex;
+    flex-direction: row;
+}
+.cell-box {
+    width: 200px;
+    margin-left: 15px;
+    height:150px
+}
