@@ -5,9 +5,7 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import BarChart from '../components/BarChart';
 import LineChart from '../components/CumulativeLineChart';
-// import getDomesticData from '../apis/DomesticData';
-// import getDomesticRegionData from '../apis/DomesticRegionData';
-
+import Summary from '../components/Summary';
 class Korea extends React.Component {
     
     state = {
@@ -16,18 +14,17 @@ class Korea extends React.Component {
     }
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
     async componentWillMount() {
-        // 국내 데이터
-        this.setState({datas :getDomesticData()});
-        // 국내 지역별 데이터 합계
-        this.setState({regionData :getDomesticRegionData()});
+        this.getDomesticData();
+        this.getDomesticRegionData();
     }
-
-    getDomesticData(){
+    // 국내 데이터
+    async getDomesticData() {
         const url = `http://localhost:3000/korea-data`;
-
+ 
         const {data:{items:{item}}} = await axios.get(url)
         let chartData = []
-    
+
+        // console.log(item);
         for (let i = item.length-1, j = 0; 7 > j; i--) {
             j++;
             let date = item[i].stateDt + "";
@@ -35,16 +32,16 @@ class Korea extends React.Component {
                 name: `${date.substring(0,4)}-${date.substring(4,6)}-${date.substring(6,8)}`,
                 "확진자수": item[i].decideCnt
             });
-        }    
-        return chartData;
+        }
+        
+        this.setState({datas :chartData});
     }
-    getDomesticRegionData(){
+    // 국내 지역별 데이터 합계
+    async getDomesticRegionData() {
         const url = `http://localhost:3000/korea-data/localStatus`;
- 
         const { data } = await axios.get(url)
-        return data;
+        this.setState({ regionData: data });
     }
-
 
     render() {
         return (
@@ -52,10 +49,11 @@ class Korea extends React.Component {
                  <Header/>
                  <div className="align-row">
                     <Navigation/>
-                        <div className="align-column">
-                            <LineChart propsDatas = {this.state.datas}/>
-                            <BarChart propsDatas = {this.state.regionData}/>
-                        </div>
+                    <div className="align-column">
+                        <Summary/>
+                        <LineChart propsDatas = {this.state.datas}/>
+                        <BarChart propsDatas = {this.state.regionData}/>
+                    </div>
                 </div>
             </div>
         )

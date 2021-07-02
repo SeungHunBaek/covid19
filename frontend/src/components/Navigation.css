@@ -12,3 +12,25 @@
   font-size: calc(10px + 1.5vmin);
   color: white;
 }
+
+span {
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+  width: 210px;
+	max-width: 220px;
+	border-radius: 0px;
+	padding: 20px 30px;
+}
+
+span.button {
+	color: white;
+}
+
+span.button:hover {
+	color: black;
+	box-shadow: white 0 0px 0px 40px inset;
+}
