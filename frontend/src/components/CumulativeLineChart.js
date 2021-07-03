@@ -1,6 +1,6 @@
 import React from "react";
 import './Chart.css';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from "recharts";
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, LabelList } from "recharts";
 // X축 라벨
 const CustomizedLabel = (props) => {
   const { x, y, stroke, value } = props;
@@ -86,8 +86,6 @@ const CustomizedDot = () => {
 }
 
 export default function CumulativeLineChart(props) {
-    console.log('==')
-    console.log(props.propsDatas)
     const datas = props.propsDatas;
   return (
     <LineChart
@@ -102,14 +100,12 @@ export default function CumulativeLineChart(props) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name"  height={60} tick={<CustomizedAxisTick/>} />
-      <YAxis dataKey="확진자수" domain={[142000, 'auto']} tick={<CustomizedYAxisTick/>}  />
+      <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick/>} interval={0}/>
+      <YAxis dataKey="확진자수" domain={['dataMin-1000', 'auto']} tick={<CustomizedYAxisTick/>}  />
       <Tooltip content={<CustomTooltip/>}/>
-      <Legend />
       <Line type="monotone" dataKey="확진자수" stroke="#8884d8" activeDot={CustomizedActiveDot()}>
         <LabelList content={<CustomizedLabel/>} />
       </Line>
-      {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
     </LineChart>
   );
 }
