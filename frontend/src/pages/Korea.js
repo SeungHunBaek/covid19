@@ -13,11 +13,13 @@ class Korea extends React.Component {
         datas: [],
         regionData: []
     }
+
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
     componentDidMount() {
         this.getDomesticRegionData();
         this.getDomesticData();
     }
+
     // 국내 데이터
     async getDomesticData() {
         const url = `http://localhost:3000/korea-data`;
@@ -51,7 +53,7 @@ class Korea extends React.Component {
                  <div className="align-row">
                     <Navigation/>
                     <div className="align-column">
-                        <Summary infState = {this.state.infState[0]}/>
+                        <Summary infState = {this.state.infState}/>
                         <LineChart propsDatas = {this.state.datas}/>
                         <BarChart propsDatas = {this.state.regionData}/>
                     </div>
