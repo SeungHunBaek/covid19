@@ -23,7 +23,7 @@ const CustomizedAxisTick = (props) => {
 };
 
 export default function barChart(props) {
-  const data = props.propsDatas;
+  const data = [...props.propsDatas].reverse();
   return (
     <ComposedChart
       width={1150}
@@ -47,7 +47,7 @@ export default function barChart(props) {
       <YAxis 
         label={{ value: "명" , offset: 30, angle: 0, position: 'top' }} 
         type="number" 
-        ticks={[100,200,300,400,500,600,700,800,900,1000]}
+        ticks={[100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400]}
         domain={[0, 'dataMax']} />
       <Tooltip  
         formatter={(value) => new Intl.NumberFormat('en').format(value)
