@@ -9,22 +9,25 @@ import Summary from '../components/Summary';
 class Korea extends React.Component {
     
     state = {
+        infState:[],
         datas: [],
         regionData: []
     }
+
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
-    async componentWillMount() {
-        this.getDomesticData();
+    componentDidMount() {
         this.getDomesticRegionData();
+        this.getDomesticData();
     }
+
     // 국내 데이터
     async getDomesticData() {
         const url = `http://localhost:3000/korea-data`;
  
-        const {data:{items:{item}}} = await axios.get(url)
+        const {data:{items:{item}}} = await axios.get(url);
+        this.setState({infState :item});
         let chartData = []
-
-        // console.log(item);
+        // this.setState({datas :chartData});
         for (let i = item.length-1, j = 0; 7 > j; i--) {
             j++;
             let date = item[i].stateDt + "";
@@ -50,7 +53,7 @@ class Korea extends React.Component {
                  <div className="align-row">
                     <Navigation/>
                     <div className="align-column">
-                        <Summary/>
+                        <Summary infState = {this.state.infState}/>
                         <LineChart propsDatas = {this.state.datas}/>
                         <BarChart propsDatas = {this.state.regionData}/>
                     </div>
