@@ -33,12 +33,11 @@ export default function barChart(props) {
     if(!max) return;
     const tickMax = (Math.ceil(max.incDec / 100) * 100) + 100;
     const tickMin = (Math.ceil(min.incDec / 100) * 100) - 100;
-    // const temp =  [600,700,800,900,1000,1100,1200,1300,1400];
     let tick =[];
     if(tickMin > 500 && (tickMax - tickMin) > 300) {
-      tick =  [0, 200, 400, 600, 800, 1000, 1200, 1400];
+      tick =  [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000];
     } else {
-      tick =  [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400];
+      tick =  [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600];
     }
     return tick;
   };
@@ -64,7 +63,7 @@ export default function barChart(props) {
         interval={0}
       />
       <YAxis 
-        label={{ value: "명" , offset: 30, angle: 0, position: 'top' }} 
+        label={{ value: "명" , offset: 10, angle: 0, position: 'top' }} 
         type="number" 
         ticks={CustomizedYAxisTick()}
         domain={[0, 'dataMax']} />

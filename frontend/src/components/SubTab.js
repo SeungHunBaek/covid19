@@ -7,7 +7,6 @@ class SubTab extends React.Component {
         super(props);
     }
     render() {
-
         return (
             <div>
                 <span className='subTab' onClick={this.props.cumulative}>
