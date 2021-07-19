@@ -90,7 +90,7 @@ export default function CumulativeLineChart(props) {
   return (
     <LineChart
       width={1200}
-      height={500}
+      height={600}
       data={datas}
       margin={{
         top: 20,

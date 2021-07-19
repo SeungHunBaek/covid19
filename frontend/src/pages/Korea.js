@@ -6,13 +6,18 @@ import Navigation from '../components/Navigation';
 import BarChart from '../components/BarChart';
 import LineChart from '../components/CumulativeLineChart';
 import Summary from '../components/Summary';
+import SubTab from '../components/SubTab';
 class Korea extends React.Component {
     
-    state = {
-        infState:[],
-        datas: [],
-        regionData: []
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            infState:[],
+            datas: [],
+            regionData: [],
+            chartState: 0 // 0: 국내 누적감염현황, 1: 신규 감염현황
+        }
+      }
 
     //React 엘리먼트를 실제 DOM 노드에 추가하기 직전에 호출.
     componentDidMount() {
@@ -46,7 +51,25 @@ class Korea extends React.Component {
         this.setState({ regionData: data });
     }
 
+    cumulativeClick = () => {
+        this.setState({
+            chartState: 0,
+        });
+    }
+    dailyClick = () => {
+        this.setState({
+            chartState: 1,
+        });
+    }
+
     render() {
+        const chartState = this.state.chartState;
+        let chart;
+        if(chartState === 0) {
+            chart = <LineChart propsDatas = {this.state.datas}/>
+        } else if(chartState === 1) {
+            chart = <BarChart propsDatas = {this.state.regionData}/>
+        }
         return (
             <div>
                  <Header/>
@@ -54,8 +77,8 @@ class Korea extends React.Component {
                     <Navigation/>
                     <div className="align-column">
                         <Summary infState = {this.state.infState}/>
-                        <LineChart propsDatas = {this.state.datas}/>
-                        <BarChart propsDatas = {this.state.regionData}/>
+                        <SubTab cumulative = {this.cumulativeClick} daily = {this.dailyClick}/>
+                        {chart}
                     </div>
                 </div>
             </div>
