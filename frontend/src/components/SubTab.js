@@ -6,9 +6,11 @@ class SubTab extends React.Component {
     constructor(props) {
         super(props);
     }
+    
     render() {
+        // console.log(this.props)
         return (
-            <div>
+            <div className='align-row'>
                 <span className='subTab' onClick={this.props.cumulative}>
                     누진 확진자 추이
                 </span>

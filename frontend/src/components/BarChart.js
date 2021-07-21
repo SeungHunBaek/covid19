@@ -45,6 +45,7 @@ export default function barChart(props) {
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  // 라벨수치 표시
   const CustomizedLabel = (props) => {  
     const {x, y, value } = props;
 
