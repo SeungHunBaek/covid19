@@ -77,7 +77,11 @@ class Korea extends React.Component {
                     <Navigation/>
                     <div className="align-column">
                         <Summary infState = {this.state.infState}/>
-                        <SubTab cumulative = {this.cumulativeClick} daily = {this.dailyClick}/>
+                        <SubTab 
+                            cumulative = {this.cumulativeClick} 
+                            daily = {this.dailyClick}
+                            status = {this.state.chartState}
+                        />
                         {chart}
                     </div>
                 </div>

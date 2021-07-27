@@ -41,7 +41,29 @@ export default function barChart(props) {
     }
     return tick;
   };
+  // 숫자[,]추가처리
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  // 라벨수치 표시
+  const CustomizedLabel = (props) => {  
+    const {x, y, value } = props;
 
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={43}
+          y={-25}
+          dy={20}
+          textAnchor="end"
+          fill="black"
+          transform="rotate(0)"
+        >
+           {numberWithCommas(value)}
+         </text>
+      </g>
+    );
+  };
   return (
     <ComposedChart
       width={1150}
@@ -75,6 +97,7 @@ export default function barChart(props) {
         barSize={50} 
         fill="#FA5858" 
         unit="명"
+        label={<CustomizedLabel />}
       />
     </ComposedChart>
   );
