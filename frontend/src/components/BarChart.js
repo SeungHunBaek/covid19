@@ -35,9 +35,17 @@ export default function barChart(props) {
     const tickMin = (Math.ceil(min.incDec / 100) * 100) - 100;
     let tick =[];
     if(tickMin > 500 && (tickMax - tickMin) > 300) {
-      tick =  [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000];
+      let i = 0;
+      for (i = 0; i < tickMax; i =i+200) {
+          tick.push(i);
+      };
+      tick.push(i);
     } else {
-      tick =  [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600];
+      let i = 0;
+      for (i = 0; i < tickMax; i=i+100) {
+          tick.push(i);
+      };
+      tick.push(i);
     }
     return tick;
   };
