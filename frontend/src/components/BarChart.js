@@ -1,6 +1,6 @@
 import React from "react";
 import './Chart.css';
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip} from "recharts";
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LabelList} from "recharts";
 import _ from 'lodash';
 
 // X축 tick
@@ -18,6 +18,28 @@ const CustomizedXAxisTick = (props) => {
         transform="rotate(0)"
       >
         {date.substring(0, 10)}
+      </text>
+    </g>
+  );
+};
+
+// 숫자[,]추가처리
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const renderCustomizedLabel = (props) => {
+  const { x, y, width, value } = props;
+  const radius = 10;
+  return (
+    <g>
+      <text
+        x={x + width / 2}
+        y={y - radius}
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        {numberWithCommas(value)}
       </text>
     </g>
   );
@@ -83,7 +105,9 @@ export default function barChart(props) {
         barSize={50} 
         fill="#FA5858" 
         unit="명"
-      />
+      >
+        <LabelList dataKey="incDec" content={renderCustomizedLabel} />
+      </Bar>
     </ComposedChart>
   );
 }
