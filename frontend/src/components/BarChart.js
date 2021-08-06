@@ -39,7 +39,7 @@ const renderCustomizedLabel = (props) => {
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {numberWithCommas(value)}
+        {numberWithCommas(value)}명
       </text>
     </g>
   );
