@@ -1,6 +1,6 @@
 import React from "react";
 import './Chart.css';
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip} from "recharts";
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LabelList} from "recharts";
 import _ from 'lodash';
 
 // X축 tick
@@ -23,6 +23,28 @@ const CustomizedXAxisTick = (props) => {
   );
 };
 
+// 숫자[,]추가처리
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const renderCustomizedLabel = (props) => {
+  const { x, y, width, value } = props;
+  const radius = 10;
+  return (
+    <g>
+      <text
+        x={x + width / 2}
+        y={y - radius}
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        {numberWithCommas(value)}명
+      </text>
+    </g>
+  );
+};
+
 export default function barChart(props) {
   const data = [...props.propsDatas].reverse();
   
@@ -35,9 +57,17 @@ export default function barChart(props) {
     const tickMin = (Math.ceil(min.incDec / 100) * 100) - 100;
     let tick =[];
     if(tickMin > 500 && (tickMax - tickMin) > 300) {
-      tick =  [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000];
+      let i = 0;
+      for (i = 0; i < tickMax; i =i+200) {
+          tick.push(i);
+      };
+      tick.push(i);
     } else {
-      tick =  [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600];
+      let i = 0;
+      for (i = 0; i < tickMax; i=i+100) {
+          tick.push(i);
+      };
+      tick.push(i);
     }
     return tick;
   };
@@ -97,8 +127,11 @@ export default function barChart(props) {
         barSize={50} 
         fill="#FA5858" 
         unit="명"
-        label={<CustomizedLabel />}
+      >
+        <LabelList dataKey="incDec" content={renderCustomizedLabel} />
+      </Bar>
       />
+
     </ComposedChart>
   );
 }

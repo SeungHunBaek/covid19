@@ -2,9 +2,11 @@
 span.subTab {
 	color: black;
 }
-
 .align-row {
     display: flex;
     flex-direction: row;
-	text-align: center;
 }
+.selected-charts {
+    color: red;
+}
+
