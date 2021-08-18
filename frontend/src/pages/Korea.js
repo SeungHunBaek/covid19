@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import BarChart from '../components/BarChart';
 import LineChart from '../components/CumulativeLineChart';
+import DoubleLineChart from '../components/DoubleLineChart';
 import Summary from '../components/Summary';
 import SubTab from '../components/SubTab';
 class Korea extends React.Component {
@@ -51,12 +52,17 @@ class Korea extends React.Component {
         this.setState({ regionData: data });
     }
 
-    cumulativeClick = () => {
+    dailyClick = () => {
         this.setState({
             chartState: 0,
         });
     }
-    dailyClick = () => {
+    cumulativeClick = () => {
+        this.setState({
+            chartState: 1,
+        });
+    }
+    vaccineClick = () => {
         this.setState({
             chartState: 1,
         });
@@ -66,9 +72,11 @@ class Korea extends React.Component {
         const chartState = this.state.chartState;
         let chart;
         if(chartState === 0) {
-            chart = <LineChart propsDatas = {this.state.datas}/>
-        } else if(chartState === 1) {
             chart = <BarChart propsDatas = {this.state.regionData}/>
+        } else if(chartState === 1) {
+            chart = <LineChart propsDatas = {this.state.datas}/>
+        } else if(chartState === 2) {
+            chart = <DoubleLineChart propsDatas = {this.state.datas}/>
         }
         return (
             <div>
@@ -77,7 +85,11 @@ class Korea extends React.Component {
                     <Navigation/>
                     <div className="align-column">
                         <Summary infState = {this.state.infState}/>
-                        <SubTab cumulative = {this.cumulativeClick} daily = {this.dailyClick}/>
+                        <SubTab 
+                            cumulative = {this.cumulativeClick} 
+                            daily = {this.dailyClick}
+                            chartState = {this.state.chartState}
+                        />
                         {chart}
                     </div>
                 </div>
