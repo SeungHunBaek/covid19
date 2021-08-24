@@ -89,7 +89,6 @@ class Korea extends React.Component {
                             cumulative = {this.cumulativeClick} 
                             daily = {this.dailyClick}
                             chartState = {this.state.chartState}
-
                         />
                         {chart}
                     </div>

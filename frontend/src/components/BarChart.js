@@ -130,8 +130,6 @@ export default function barChart(props) {
       >
         <LabelList dataKey="incDec" content={renderCustomizedLabel} />
       </Bar>
-      />
-
     </ComposedChart>
   );
 }
