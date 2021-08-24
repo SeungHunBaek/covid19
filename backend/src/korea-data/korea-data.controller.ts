@@ -21,4 +21,11 @@ export class KoreaDataController {
 
         return localStatus;
     }
+    @Get('/vaccineStatus')
+    async vaccineStatus(): Promise<object> {
+
+        const vaccineStatus: object = await this.koreaDataService.vaccineStatus();
+
+        return vaccineStatus;
+    }
 }

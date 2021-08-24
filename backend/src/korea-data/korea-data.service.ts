@@ -42,6 +42,25 @@ export class KoreaDataService {
         });
         return total;
     }
+
+    async vaccineStatus(): Promise<object> {    
+        // 한국내 백신접종 현황
+        const endPoint: string = config.VaccineState.endPoint;
+        const key: string = config.VaccineState.key;
+        const pageNo: string = config.VaccineState.pageNo;
+        const numOfRows: string = config.VaccineState.numOfRows;
+        const startCreateDt: string = this.getStartCreateDt();
+        const endCreateDt: string = this.getEndCreateDt();
+
+        const vaccineStatus = await axios.get(`${endPoint}${key}${pageNo}${numOfRows}&startCreateDt=${startCreateDt}&endCreateDt=${endCreateDt}`);
+        this.getStartCreateDt();
+        this.getEndCreateDt();
+
+        const items = vaccineStatus.data.response.body.items;
+ 
+        return items;
+    }
+
     // 검색시작 일자
     getStartCreateDt() {
         const date = new Date();

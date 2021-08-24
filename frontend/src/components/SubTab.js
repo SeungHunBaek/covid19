@@ -6,6 +6,7 @@ class SubTab extends React.Component {
     constructor(props) {
         super(props);
     }
+    
     render() {
         let selectedCharts;
         if(this.props.chartState === 1){            
