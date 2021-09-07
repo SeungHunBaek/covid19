@@ -3,7 +3,7 @@ import axios from "axios";
 import config from "../../config/config";
 
 @Injectable()
-export class KoreaDataService {
+export class WorldDataService {
 
     async getStatus(): Promise<object> {
         
