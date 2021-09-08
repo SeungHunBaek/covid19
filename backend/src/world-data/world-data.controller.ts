@@ -6,26 +6,11 @@ export class WorldDataController {
 
     constructor(private readonly worldDataService: WorldDataService) {}
     
-    @Get()
-    async getStatus(): Promise<object> {
-
-        const infState: object = await this.worldDataService.getStatus();
-
-        console.log(`[KoreaDataController]: infState: ${JSON.stringify(infState, null, 4)}`);
-        return infState;
-    }
     @Get('/localStatus')
     async localStatus(): Promise<object> {
 
-        const localStatus: object = await this.worldDataService.localStatus();
+        const localStatus: object = await this.worldDataService.worldStatus();
 
         return localStatus;
-    }
-    @Get('/vaccineStatus')
-    async vaccineStatus(): Promise<object> {
-
-        const vaccineStatus: object = await this.worldDataService.vaccineStatus();
-
-        return vaccineStatus;
     }
 }
