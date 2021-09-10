@@ -16,7 +16,7 @@ export default {
         "endCreateDt": "&endCreateDt=20210524"    
     },
     WorldState: {
-        "endPoint": "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson??",
+        "endPoint": "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson?",
         "key": "serviceKey=H3Nvl%2FUBjLT7lh2RHJzMQlSfYBdcJCdwAeqhyl3WoupH4J%2FqHqF3D11WOdqrey9mcfI6QOIf8hLW54lR%2FN2XNg%3D%3D",
         "pageNo": "&pageNo=1",
         "numOfRows": "&numOfRows=1000",
