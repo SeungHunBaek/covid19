@@ -15,11 +15,19 @@ export default {
         "startCreateDt": "&startCreateDt=20210517",
         "endCreateDt": "&endCreateDt=20210524"    
     },
-    VaccineState: {
-        "endPoint": "http://api.odcloud.kr/api/15077756/v1/vaccine-stat?",
-        "key": "serviceKey=%09%20H3Nvl%252FUBjLT7lh2RHJzMQlSfYBdcJCdwAeqhyl3WoupH4J%252FqHqF3D11WOdqrey9mcfI6QOIf8hLW54lR%252FN2XNg%253D%253D",
+    WorldState: {
+        "endPoint": "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson?",
+        "key": "serviceKey=H3Nvl%2FUBjLT7lh2RHJzMQlSfYBdcJCdwAeqhyl3WoupH4J%2FqHqF3D11WOdqrey9mcfI6QOIf8hLW54lR%2FN2XNg%3D%3D",
         "pageNo": "&pageNo=1",
         "numOfRows": "&numOfRows=1000",
+        "startCreateDt": "&startCreateDt=20210517",
+        "endCreateDt": "&endCreateDt=20210524"    
+    },
+    VaccineState: {
+        "endPoint": "https://api.odcloud.kr/api/15077756/v1/vaccine-stat?",
+        "key": "serviceKey=H3Nvl%2FUBjLT7lh2RHJzMQlSfYBdcJCdwAeqhyl3WoupH4J%2FqHqF3D11WOdqrey9mcfI6QOIf8hLW54lR%2FN2XNg%3D%3D",
+        "pageNo": "&page=1",
+        "perPage": "&perPage=1000",
         "startCreateDt": "&startCreateDt=20210517",
         "endCreateDt": "&endCreateDt=20210524"    
     }

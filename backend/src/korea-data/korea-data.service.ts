@@ -48,7 +48,7 @@ export class KoreaDataService {
         const endPoint: string = config.VaccineState.endPoint;
         const key: string = config.VaccineState.key;
         const pageNo: string = config.VaccineState.pageNo;
-        const numOfRows: string = config.VaccineState.numOfRows;
+        const numOfRows: string = config.VaccineState.perPage;
         const startCreateDt: string = this.getStartCreateDt();
         const endCreateDt: string = this.getEndCreateDt();
 
