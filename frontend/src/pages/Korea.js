@@ -34,7 +34,7 @@ class Korea extends React.Component {
         this.setState({infState :item});
         let chartData = []
         // this.setState({datas :chartData});
-        for (let i = item.length-1, j = 0; 7 > j; i--) {
+        for (let i = item.length-1, j = 0; 6 > j; i--) {
             j++;
             let date = item[i].stateDt + "";
             chartData.push({
@@ -42,7 +42,7 @@ class Korea extends React.Component {
                 "확진자수": item[i].decideCnt
             });
         }
-        
+
         this.setState({datas :chartData});
     }
     // 국내 지역별 데이터 합계
@@ -75,9 +75,7 @@ class Korea extends React.Component {
             chart = <BarChart propsDatas = {this.state.regionData}/>
         } else if(chartState === 1) {
             chart = <LineChart propsDatas = {this.state.datas}/>
-        } else if(chartState === 2) {
-            chart = <DoubleLineChart propsDatas = {this.state.datas}/>
-        }
+        } 
         return (
             <div>
                  <Header/>
